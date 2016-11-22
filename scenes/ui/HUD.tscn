@@ -1,0 +1,139 @@
+[gd_scene load_steps=8 format=1]
+
+[ext_resource path="res://scripts/ui/pausebutton.gd" type="Script" id=1]
+[ext_resource path="res://assets/hud/hub_bg.png" type="Texture" id=2]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Button\n\nfunc _pressed():\n\tvar game = get_tree().get_root().get_node(\"World\").get_node(\"Game\")\n\tvar resources = get_node(\"/root/resources\")\n\t\n\tif(!game.is_simulating()):\n\t\tvar Editor = game.get_node(\"Editor\")\n\t\tvar dragablescene = load(\"res://scenes/editor/dragable.tscn\")\n\t\tvar dragableinstance = dragablescene.instance()\n\t\t\n\t\tdragableinstance.set_object_name(\"platform\")\n\t\tdragableinstance.set_pos(Vector2(50, 200))\n\t\tdragableinstance.set_texture(resources.get_image(\"platform\"))\n\t\t\n\t\tEditor.add_child(dragableinstance)\n\t\t\n\t\tvar Log = get_node(\"/root/log\")\n\t\tLog.add_to_log(\"added platform\")"
+
+[sub_resource type="GDScript" id=2]
+
+script/source = "extends Button\n\nfunc _pressed():\n\tvar game = get_tree().get_root().get_node(\"World\").get_node(\"Game\")\n\tgame.test_save_level()"
+
+[sub_resource type="GDScript" id=3]
+
+script/source = "extends Button\n\nfunc _pressed():\n\tvar game = get_tree().get_root().get_node(\"World\").get_node(\"Game\")\n\tgame.test_load_level()"
+
+[sub_resource type="GDScript" id=4]
+
+script/source = "extends Button\n\nfunc _pressed():\n\tvar game = get_tree().get_root().get_node(\"World\").get_node(\"Game\")\n\t#global.add_to_log(\"Clicked spawn conveyor button\")\n\t\n\tvar resources = get_node(\"/root/resources\")\n\t\n\tif(!game.is_simulating()):\n\t\t#find the editor node and spawn the dragableItem in it.\n\t\tvar Editor = game.get_node(\"Editor\")\n\t\tvar dragablescene = load(\"res://scenes/editor/dragable.tscn\")\n\t\tvar dragableinstance = dragablescene.instance()\n\t\t\n\t\tdragableinstance.set_object_name(\"conveyor\")\n\t\tdragableinstance.set_pos(Vector2(50, 200))\n\t\tdragableinstance.set_texture(resources.get_image(\"conveyor\"))\n\t\t\n\t\tEditor.add_child(dragableinstance)\n\t\t\n\t\tvar Log = get_node(\"/root/log\")\n\t\tLog.add_to_log(\"Added conveyor\")"
+
+[sub_resource type="GDScript" id=5]
+
+script/source = "extends Button\n\nfunc _pressed():\n\tvar menu = load(\"res://scenes/menu.tscn\").instance()\n\tget_tree().get_root().get_node(\"World\").add_child(menu)\n\t\n\tvar game = get_tree().get_root().get_node(\"World\").get_node(\"Game\")\n\tgame.queue_free()"
+
+[node name="HUD" type="Node"]
+
+[node name="SimulationButton" type="Button" parent="."]
+
+process/pause_mode = 2
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 1500.0
+margin/top = 50.0
+margin/right = 1547.0
+margin/bottom = 70.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Start"
+flat = false
+script/script = ExtResource( 1 )
+
+[node name="Background" type="Sprite" parent="."]
+
+transform/pos = Vector2( 400, 800 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Platform" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 478.0
+margin/top = 829.0
+margin/right = 599.0
+margin/bottom = 849.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Spawn a platform"
+flat = false
+script/script = SubResource( 1 )
+
+[node name="Testsave" type="Button" parent="."]
+
+visibility/visible = false
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 467.0
+margin/top = 22.0
+margin/right = 588.0
+margin/bottom = 42.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "TestSave"
+flat = false
+script/script = SubResource( 2 )
+
+[node name="Testload" type="Button" parent="."]
+
+visibility/visible = false
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 464.0
+margin/top = 73.0
+margin/right = 585.0
+margin/bottom = 93.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "TestLoad"
+flat = false
+script/script = SubResource( 3 )
+
+[node name="Conveyor" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 634.0
+margin/top = 829.0
+margin/right = 759.0
+margin/bottom = 849.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Spawn a conveyor"
+flat = false
+script/script = SubResource( 4 )
+
+[node name="Button" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 1122.0
+margin/top = 828.0
+margin/right = 1163.0
+margin/bottom = 848.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "back"
+flat = false
+script/script = SubResource( 5 )
+
+
