@@ -10,8 +10,8 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 125.0
-margin/bottom = 55.0
+margin/right = 308.0
+margin/bottom = 408.0
 script/script = ExtResource( 1 )
 
 [node name="Delete button" type="Button" parent="."]
@@ -30,35 +30,18 @@ shortcut = null
 text = "Delete"
 flat = false
 
-[node name="LineEdit" type="LineEdit" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 
+rect/min_size = Vector2( 400, 40 )
 focus/ignore_mouse = false
-focus/stop_mouse = true
+focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 62.0
-margin/top = 26.0
-margin/right = 120.0
-margin/bottom = 50.0
-text = "0"
-placeholder/alpha = 0.6
-focus_mode = 2
-caret/caret_blink = false
-caret/caret_blink_speed = 0.65
-
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 2.0
+margin/left = 0.0
 margin/top = 30.0
-margin/right = 60.0
-margin/bottom = 53.0
-bbcode/enabled = false
-bbcode/bbcode = "Rotation"
-visible_characters = -1
+margin/right = 400.0
+margin/bottom = 70.0
+alignment = 0
 
 [connection signal="mouse_enter" from="." to="." method="_on_Container_mouse_enter"]
 
@@ -69,15 +52,5 @@ visible_characters = -1
 [connection signal="mouse_exit" from="Delete button" to="." method="_on_Delete_button_mouse_exit"]
 
 [connection signal="pressed" from="Delete button" to="." method="_on_Delete_button_pressed"]
-
-[connection signal="mouse_enter" from="LineEdit" to="." method="_on_LineEdit_mouse_enter"]
-
-[connection signal="mouse_exit" from="LineEdit" to="." method="_on_LineEdit_mouse_exit"]
-
-[connection signal="text_entered" from="LineEdit" to="." method="_on_LineEdit_text_entered"]
-
-[connection signal="mouse_enter" from="RichTextLabel" to="." method="_on_RichTextLabel_mouse_enter"]
-
-[connection signal="mouse_exit" from="RichTextLabel" to="." method="_on_RichTextLabel_mouse_exit"]
 
 

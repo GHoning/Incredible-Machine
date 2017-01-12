@@ -37,14 +37,14 @@ func restart_level():
 	#make some sort of level file. Because this is ugly :)
 	var testInstance = load("res://scenes/editor/static.tscn").instance()
 	var resources = get_node("/root/resources")
-	testInstance.set_pos(Vector2(200, 200))
+	testInstance.set_pos(Vector2(500, 200))
 	testInstance.set_object_name("ball")
 	testInstance.set_texture(resources.get_image("ball"))
 	testInstance.set_z(-20)
 	TestEditor.add_child(testInstance)
 	
 	var fInstance = load("res://scenes/editor/static.tscn").instance()
-	fInstance.set_pos(Vector2(1400, 700))
+	fInstance.set_pos(Vector2(1070, 700))
 	fInstance.set_object_name("finish")
 	fInstance.set_texture(resources.get_image("finish"))
 	fInstance.set_z(-20)
@@ -128,6 +128,7 @@ func start_simulation():
 	
 	for object in ObjectsInEditor:
 		#store their position and item name.
+		
 		var storageObject = {
 			"name" : object.get_object_name(),
 			"transform" : object.get_transform(),
@@ -145,19 +146,11 @@ func start_simulation():
 	#delete stuff.
 	Editor.free()
 	
-	#add the simulation node
+	#add the simulation node and the game objects
 	var simulationInstance = load("res://scenes/worlds/simulation.tscn").instance()
 	simulationInstance.set_name("Simulation")
 	add_child(simulationInstance)
-	
-	#spawn the game items.
-	var resources = get_node("/root/resources")
-	var simulation = get_node("Simulation")
-	
-	for object in currentLevel:
-		var objectInstance = resources.get_item_instance(object.name)
-		objectInstance.set_transform(object.transform)
-		simulation.add_child(objectInstance)
+	simulationInstance.load_level(currentLevel)
 	
 func is_simulating():
 	return simulating
@@ -172,28 +165,9 @@ func end_simulation():
 	#add editor to world and its items.
 	var EditorInstance = load("res://scenes/worlds/editor.tscn").instance()
 	add_child(EditorInstance)
+	EditorInstance.load_level(currentLevel)
 	
-	var Editor = get_node("Editor")
-	#make this dynamic and check for static items but this can be done later.
 	
-	for o in currentLevel:
-		var itemSpawn
-		if(o.staticObject):
-			itemSpawn = load("res://scenes/editor/static.tscn").instance()
-		else:
-			itemSpawn = load("res://scenes/editor/dragable.tscn").instance()
-			
-		itemSpawn.set_object_name(o.name)
-		itemSpawn.set_texture(resources.get_image(o.name))
-		var x_axis = Vector2(o.x_axis_x, o.x_axis_y)
-		var y_axis = Vector2(o.y_axis_x, o.y_axis_y)
-		var origin = Vector2(o.origin_x, o.origin_y)
-		
-		var transform = Matrix32(x_axis, y_axis, origin)
-		itemSpawn.set_transform(transform)
-		itemSpawn.set_z(-20)
-		Editor.add_child(itemSpawn)
-			
 func win_level():
 	#add_to_log("Won level 1")
 	

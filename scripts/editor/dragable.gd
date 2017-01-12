@@ -79,6 +79,8 @@ func set_object_name(name):
 	objectName = name
 
 
+
+
 var staticObject = false
 
 func set_staticObject(b):
@@ -97,8 +99,7 @@ func spawn_hud_widget():
 	if(!attachedWidget):
 		attachedWidget = true
 		var ItemWidgetInstance = load("res://scenes/editor/itemwidget.tscn").instance()
-		ItemWidgetInstance.set_rotation(-get_rot())
-		ItemWidgetInstance.set_degrees(get_rotd())
+		ItemWidgetInstance.setup_config_options(get_node("/root/resources").get_config(get_object_name()))
 		add_child(ItemWidgetInstance)
 		
 func remove_hud_widget():
