@@ -1,14 +1,15 @@
 extends Node
 
-#get te level that needs to be loaded
-func load_level(level):
+#get the Storage Node and spawn the required items from using the stored objects from the storage node.
+func load_level(StorageNode):
 	var resources = get_node("/root/resources")
 	
-	for object in level:
-		var objectInstance = resources.get_item_instance(object.name)
-		objectInstance.set_transform(object.transform)
+	for storedObject in StorageNode.get_children():
+		var objectInstance = resources.get_item_instance(storedObject.get_stored_name())
+		objectInstance.set_transform(storedObject.get_stored_transform())
 		add_child(objectInstance)
-		
+
+
 	#from here add the test items
 	var hamster = load("res://scenes/game/hamstercage.tscn").instance()
 	hamster.set_pos(Vector2(450, 700))

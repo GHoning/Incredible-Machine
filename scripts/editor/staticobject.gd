@@ -14,3 +14,12 @@ func set_staticObject(b):
 
 func get_staticObject():
 	return staticObject
+
+#Config 
+var config
+
+func get_config():
+	return config
+	
+func set_config(configuration):
+	config = configuration

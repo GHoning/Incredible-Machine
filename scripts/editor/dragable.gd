@@ -12,6 +12,18 @@ var rigidbody_vector = 0
 
 var offset
 
+
+#Config 
+var config
+
+func get_config():
+	return config
+	
+func set_config(configuration):
+	config = configuration
+
+
+
 func _ready():
 	set_process_input(true)
 	set_fixed_process(true)

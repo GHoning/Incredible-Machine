@@ -33,16 +33,14 @@ func _on_Container_mouse_enter():
 	
 func _on_Container_mouse_exit():
 	mouseover_container = false
-	
+
 #delete button
 func _on_Delete_button_mouse_enter():
 	mouseover_delete = true
-	
+
 func _on_Delete_button_mouse_exit():
 	mouseover_delete = false
-	
-	
-#return 
+ 
 func is_mouse_in_container():
 	
 	if mouseover_container or mouseover_delete:

@@ -64,110 +64,103 @@ func playback():
 	
 func test_save_level():
 	var savefile = File.new()
-	var savepath = "res://saves/testsave"+str(playtime)+".sav"
+	var savepath = "res://saves/newsave.savx"
 	savefile.open(savepath, File.WRITE)
 	
-	for o in currentLevel:
-		savefile.store_string(o.to_json() + "\n")
-		
+	for o in get_node("Storage").get_children() :
+		print(o.get_save_dict(), o.get_config())
+		savefile.store_line(o.get_save_dict().to_json())
+		savefile.store_line(o.get_config().to_json())
+	
 	savefile.close()
+#	
+#	playtime = playtime + 1
+#	store_playtime()
 	
-	playtime = playtime + 1
-	store_playtime()
-	
-func test_load_level(path):
+func test_load_level():
 	
 	var loadlevel = []
 	
 	#open the test save.
 	var savefile= File.new()
-	#var savepath =  "res://saves/testsave.txt"
-	savefile.open(path, File.READ)
-	
+	var savepath =  "res://saves/newsave.savx"
+	var loadArray = []
+	savefile.open(savepath, File.READ)
 	while(!savefile.eof_reached()):
-		var object = {}
-		object.parse_json(savefile.get_line())
-		loadlevel.append(object)
-		
+		var newdict = {}
+		newdict.parse_json(savefile.get_line())
+		loadArray.append(newdict)
 	savefile.close()
 	
-	#remove the last object from loadlevel because of each line has a newline. 
-	loadlevel.remove(loadlevel.size()-1)
+	print(loadArray)
 	
-	#remove the current objects in the world.
-	var Editor = get_node("Editor")
-	for N in Editor.get_children():
-		N.free()
+	for o in get_node("Storage").get_children() :
+		o.free()
+		
+	print("Storage cleared")
 	
-	#
-	for o in loadlevel:
-		var itemSpawn = load("res://scenes/editor/static.tscn").instance()
-			
-		itemSpawn.set_object_name(o.name)
-		itemSpawn.set_texture(resources.get_image(o.name))
-		var x_axis = Vector2(o.x_axis_x, o.x_axis_y)
-		var y_axis = Vector2(o.y_axis_x, o.y_axis_y)
-		var origin = Vector2(o.origin_x, o.origin_y)
+	for i in range(0, loadArray.size()-1, 2):
+		print("in loop wtf")
+		var storageObject = load ("res://scenes/storageobject.tscn").instance()
+		var x_axis = Vector2(loadArray[i].xx, loadArray[i].xy)
+		var y_axis = Vector2(loadArray[i].yx, loadArray[i].yy)
+		var origin = Vector2(loadArray[i].ox, loadArray[i].oy)
+		storageObject.setupObject(loadArray[i].name, Matrix32(x_axis, y_axis, origin), loadArray[i].staticObject, loadArray[i+1])
+		get_node("Storage").add_child(storageObject)
 		
-		var transform = Matrix32(x_axis, y_axis, origin)
+	#clear the Editor Instance
+	for p in get_node("Editor").get_children():
+		p.free()
 		
-		itemSpawn.set_transform(transform)
-		itemSpawn.set_z(-20)
-		Editor.add_child(itemSpawn)
+	get_node("Editor").load_level(get_node("Storage"))
 	
 
-#Go do this in game scene
+#Store the current items in Editor and stores them. Then passes that to the simulation.
+#Maybe move this to the game.
 func start_simulation():
 	simulating = true
 	
 	var Editor = get_node("Editor")
-	var ObjectsInEditor = Editor.get_children()
 	
-	#store the items
-	currentLevel.clear()
+	#clear the storage object. Implement a version later that checks if a certain item hasn't changed
+	for child in get_node("Storage").get_children():
+		child.free()
 	
-	for object in ObjectsInEditor:
-		#store their position and item name.
-		
-		var storageObject = {
-			"name" : object.get_object_name(),
-			"transform" : object.get_transform(),
-			"x_axis_x" : object.get_transform().x.x,
-			"x_axis_y" : object.get_transform().x.y,
-			"y_axis_x" : object.get_transform().y.x,
-			"y_axis_y" : object.get_transform().y.y,
-			"origin_x" : object.get_transform().o.x,
-			"origin_y" : object.get_transform().o.y,
-			#moet dit nu lelijk opslaan. Kijken of dit ook anders kan.
-			"staticObject" : object.get_staticObject()
-		}
-		currentLevel.append(storageObject)
+	#store the objects from the editor
+	for object in Editor.get_children():
+		#create the storage object
+		var storageObject = load("res://scenes/storageobject.tscn").instance()
+		object.set_config({
+			test = "Thomas is een beetje zielig"
+		})
+		storageObject.setupObject(object.get_object_name(), object.get_transform(), object.get_staticObject(), object.get_config())
+		get_node("Storage").add_child(storageObject)
 	
-	#delete stuff.
+	#Delete editor mode
 	Editor.free()
 	
-	#add the simulation node and the game objects
+	#add the simulation mode
 	var simulationInstance = load("res://scenes/worlds/simulation.tscn").instance()
 	simulationInstance.set_name("Simulation")
 	add_child(simulationInstance)
-	simulationInstance.load_level(currentLevel)
+	simulationInstance.load_level(get_node("Storage"))
 	
 func is_simulating():
 	return simulating
-	
-	#make this an editor function. 
+
 func end_simulation():
 	simulating = false
 	
 	#remove simulation.
 	get_node("Simulation").free()
-	
+
 	#add editor to world and its items.
 	var EditorInstance = load("res://scenes/worlds/editor.tscn").instance()
 	add_child(EditorInstance)
-	EditorInstance.load_level(currentLevel)
-	
-	
+	EditorInstance.load_level(get_node("Storage"))
+
+
+
 func win_level():
 	#add_to_log("Won level 1")
 	
