@@ -106,15 +106,19 @@ func set_texture(image):
 	
 #Here check if clicked on and then spawn a hud container thingy with options.
 var attachedWidget = false
+var ItemWidgetInstance
 
 func spawn_hud_widget():
 	if(!attachedWidget):
 		attachedWidget = true
-		var ItemWidgetInstance = load("res://scenes/editor/itemwidget.tscn").instance()
-		ItemWidgetInstance.setup_config_options(get_node("/root/resources").get_config(get_object_name()))
+		ItemWidgetInstance = load("res://scenes/editor/itemwidget.tscn").instance()
+		ItemWidgetInstance.setup_config_options(config)
+		print("At start " ,config)
 		add_child(ItemWidgetInstance)
 		
 func remove_hud_widget():
 	if(attachedWidget):
+		config = ItemWidgetInstance.return_dict()
+		print("After stuff ", config)
 		get_node("Container").free()
 		attachedWidget = false

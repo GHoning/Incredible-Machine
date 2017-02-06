@@ -14,7 +14,9 @@ var Objects = [	{
 					ui_image = "res://assets/items/platform.png",
 					asset = "res://assets/items/platform.png",
 					config = {
-						length = 10
+						length = 10,
+						width = 200,
+						name = "Testing",
 					}
 				}, {
 					#remove this for an end level trigger later
@@ -28,7 +30,26 @@ var Objects = [	{
 					ui_image = "res://assets/items/conveyor.png",
 					asset =  "res://assets/items/conveyor.png",
 					config = {
-						length = 0
+						length = 0,
+						erwin = "is cool"
+					}
+				}, {
+					name = "pipe",
+					scene = "res://scenes/game/pipe.tscn",
+					ui_image = "res://assets/items/pipe.png",
+					asset =  "res://assets/items/pipe.png",
+					config = {
+						length = 0,
+						erwin = "is cool"
+					}
+				}, {
+					name = "bounce",
+					scene = "res://scenes/game/bounce.tscn",
+					ui_image = "res://assets/items/bounce.png",
+					asset =  "res://assets/items/bounce.png",
+					config = {
+						length = 0,
+						erwin = "is cool"
 					}
 				}]
 

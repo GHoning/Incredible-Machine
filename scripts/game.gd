@@ -52,6 +52,27 @@ func restart_level():
 	
 	get_node("HUD").get_node("SimulationButton").set_text("Start")
 	
+	var Bounce = load("res://scenes/editor/static.tscn").instance()
+	#var resources = get_node("/root/resources")
+	Bounce.set_pos(Vector2(520, 700))
+	Bounce.set_object_name("bounce")
+	Bounce.set_texture(resources.get_image("bounce"))
+	Bounce.set_z(-20)
+	#Pipe.set_rot(deg2rad(90))
+	#Pipe.set_scale(Vector2(2,2))
+	TestEditor.add_child(Bounce)
+	
+	var Pipe = load("res://scenes/editor/static.tscn").instance()
+	#var resources = get_node("/root/resources")
+	Pipe.set_pos(Vector2(500, 100))
+	Pipe.set_object_name("pipe")
+	Pipe.set_texture(resources.get_image("pipe"))
+	Pipe.set_z(-20)
+	#Pipe.set_rot(deg2rad(90))
+	#Pipe.set_scale(Vector2(2,2))
+	TestEditor.add_child(Pipe)
+	
+	
 func replay():
 	end_simulation()
 	get_node("HUD").get_node("SimulationButton").set_text("Start")
