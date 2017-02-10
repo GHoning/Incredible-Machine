@@ -5,7 +5,7 @@
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "extends Button\n\nfunc _pressed():\n\tvar game = get_tree().get_root().get_node(\"World\").get_node(\"Game\")\n\tvar resources = get_node(\"/root/resources\")\n\t\n\tif(!game.is_simulating()):\n\t\tvar Editor = game.get_node(\"Editor\")\n\t\tvar dragablescene = load(\"res://scenes/editor/dragable.tscn\")\n\t\tvar dragableinstance = dragablescene.instance()\n\t\t\n\t\tdragableinstance.set_object_name(\"platform\")\n\t\tdragableinstance.set_pos(Vector2(50, 200))\n\t\tdragableinstance.set_texture(resources.get_image(\"platform\"))\n\t\tdragableinstance.set_config(resources.get_config(\"platform\"))\n\t\t\n\t\tEditor.add_child(dragableinstance)\n\t\t\n\t\tvar Log = get_node(\"/root/log\")\n\t\tLog.add_to_log(\"added platform\")"
+script/source = "extends Button\n\nfunc _pressed():\n\tvar level = get_tree().get_root().get_node(\"World\").get_node(\"Game\").get_node(\"Level\")\n\t\n\tvar ballInstance = load(\"res://scenes/game/ball.scn\").instance()\n\tballInstance.set_pos(Vector2(get_viewport_rect().size.x /2, get_viewport_rect().size.y /2))\n\tlevel.add_child(ballInstance)"
 
 [sub_resource type="GDScript" id=2]
 
@@ -49,7 +49,7 @@ transform/pos = Vector2( 400, 800 )
 texture = ExtResource( 2 )
 centered = false
 
-[node name="Platform" type="Button" parent="."]
+[node name="Ball" type="Button" parent="."]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -62,7 +62,7 @@ margin/bottom = 849.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-text = "Spawn a platform"
+text = "Ball"
 flat = false
 script/script = SubResource( 1 )
 
@@ -104,6 +104,7 @@ script/script = SubResource( 3 )
 
 [node name="Conveyor" type="Button" parent="."]
 
+visibility/visible = false
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2

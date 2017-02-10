@@ -12,7 +12,7 @@ extents = Vector2( 9.7991, 1.65524 )
 custom_solver_bias = 0.0
 extents = Vector2( 38.8358, 3.95157 )
 
-[node name="Node2D" type="Node2D"]
+[node name="Pipe" type="Node2D"]
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 

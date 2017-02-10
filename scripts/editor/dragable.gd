@@ -1,124 +1,106 @@
+#move this to a the gameObject.
 extends RigidBody2D
 
-const SPEED = 2000
-const MAX_MOUSE_DISTANCE = 5.0
-
-var is_dragging = false
+var dragging = false
 var mouse_over = false
 var mouse_down = false
-var mouse_pos = Vector2()
-var mouse_dis
-var rigidbody_vector = 0
+var selected = false
+var attachedWidget = false
+var widget
+var cursor
+var cursormode = 0
 
 var offset
 
-
-#Config 
-var config
-
-func get_config():
-	return config
-	
-func set_config(configuration):
-	config = configuration
-
-
-
+#first click to select the dragable to select it. It draws a selection thing. 
+#When the user clicks on the object again they can move it.
+#WHen they click a thing on the top they can turn the object.
 func _ready():
+	#get the cursor form the game.
+	print("Ready")
+	cursor = get_parent().get_parent().get_parent().get_parent().get_node("Cursor")
+
+#turning the dragging on and off
+func dragable_on():
 	set_process_input(true)
 	set_fixed_process(true)
+	set_pickable(true)
+	set_gravity_scale(0)
 
+func dragable_off():
+	set_process_input(false)
+	set_fixed_process(false)
+	set_pickable(false)
+	set_gravity_scale(1)
+
+#inputs to check if mouse is down and such.
 func _input(event):
 	if event.is_action_pressed("mouse_down"):
 		mouse_down = true
-		
+	
 	if event.is_action_released("mouse_down"):
 		mouse_down = false
-		is_dragging = false
-
+	
+#this needs to be done better.
 func _fixed_process(delta):
-	
 	if mouse_down and mouse_over:
-		spawn_hud_widget()
-		if !is_dragging:
-			offset = get_global_pos() - get_global_mouse_pos()
-			
-		mouse_pos = get_global_mouse_pos() + offset
-		
-		mouse_dis = get_global_pos().distance_to(mouse_pos)
-		
-		is_dragging = true
-		
-		if (mouse_dis <= MAX_MOUSE_DISTANCE):
-			#destination reached.
-			rigidbody_vector = 0
-			set_linear_velocity(Vector2())
-		else:
-			#move the object
-			rigidbody_vector = (mouse_pos - get_global_pos()).normalized()
-			set_linear_velocity(rigidbody_vector * SPEED * mouse_dis * delta)
-			
-	if not mouse_down or not mouse_over:
-		#basic thing if nothing is happening.
-		is_dragging = false
-		set_linear_velocity(Vector2())
-		offset = Vector2()
-		
+		selected = true
+		spawn_widget()
+	
 	if attachedWidget :
-		if get_node("Container").is_mouse_in_container():
-			mouse_over = false
+		if mouse_down and !mouse_over and !widget.mouseOver and !widget.turning and !widget.mouseOverDelete:
+			selected = false
+			remove_widget()
+	else :
+		if mouse_down and !mouse_over:
+			selected = false
+			remove_widget()
+			
+	if mouse_down and mouse_over and selected  and !dragging:
+		dragging = true
+		offset = get_parent().get_global_pos() - get_global_mouse_pos()
 		
-		#mouse not over the item or the widget 
-		if not mouse_over and not get_node("Container").is_mouse_in_container() :
-			#remove the widget
-			if mouse_down :
-				remove_hud_widget()
-
-func _on_movableItem_mouse_exit():
-	if not is_dragging:
-		mouse_over = false
-
-func _on_movableItem_mouse_enter():
-	mouse_over = true
-
-#object interface
-var objectName = ""
-
-func get_object_name():
-	return objectName
+	if selected and mouse_over:
+		changeCursor(1)
+	else :
+		changeCursor(0)
 	
-func set_object_name(name):
-	objectName = name
-
-
-
-
-var staticObject = false
-
-func set_staticObject(b):
-	staticObject = b
-
-func get_staticObject():
-	return staticObject
+	if dragging :
+		get_parent().set_global_pos(get_global_mouse_pos() + offset)
+		
+	if !mouse_down :
+		dragging = false
+		
+#change cursor
+func changeCursor(i):
+	if cursormode !=  i :
+		cursormode = i
+		if i == 0:
+			cursor.set_Normal()
+		elif i == 1:
+			cursor.set_moveObject()
+		elif i == 2:
+			cursor.set_turnObject()
 	
-func set_texture(image):
-	get_node("Sprite").set_texture(image)
-	
-#Here check if clicked on and then spawn a hud container thingy with options.
-var attachedWidget = false
-var ItemWidgetInstance
-
-func spawn_hud_widget():
+#Add and remove widget
+func spawn_widget():
 	if(!attachedWidget):
 		attachedWidget = true
-		ItemWidgetInstance = load("res://scenes/editor/itemwidget.tscn").instance()
-		ItemWidgetInstance.setup_config_options(config)
-		print("At start " ,config)
-		add_child(ItemWidgetInstance)
-		
-func remove_hud_widget():
+		var widgetInstance = load("res://scenes/ui/SelectedUI.tscn").instance()
+		widgetInstance.setup(get_node("Sprite").get_texture().get_size())
+		widgetInstance.set_rot(get_rot() * -1)
+		add_child(widgetInstance)
+		widget = get_node("SelectedUI")
+	
+func remove_widget():
 	if(attachedWidget):
-		config = ItemWidgetInstance.return_dict()
-		print("After stuff ", config)
-		get_node("Container").free()
+		widget.free()
 		attachedWidget = false
+	
+#Events from the sprite to see if there is a mouse over going on.
+func _on_mouse_enter():
+	mouse_over = true
+	
+func _on_mouse_exit():
+	if not dragging:
+		mouse_over = false

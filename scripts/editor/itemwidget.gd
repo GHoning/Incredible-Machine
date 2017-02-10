@@ -3,8 +3,8 @@ extends Container
 var configuration
 
 func _ready():
-	var parentspritewidth = get_parent().get_node("Sprite").get_texture().get_size().x
-	set_pos(Vector2(parentspritewidth/2, 0))
+	#var parentspritewidth = get_parent().get_node("Sprite").get_texture().get_size().x
+	#set_pos(Vector2(parentspritewidth/2, 0))
 	print(has_focus())
 	
 func _draw():
@@ -31,8 +31,7 @@ func return_dict():
 	for i in range(0 ,KeyValueArray.size(), 1):
 		print(" in the storage ",configuration.values()[i], KeyValueArray[i].get_node("TextEdit").get_text())
 		configuration.values()[i] = KeyValueArray[i].get_node("TextEdit").get_text()
-	
-	
+		
 	print(configuration.values()[0])
 	return configuration
 	

@@ -6,6 +6,45 @@ var currentLevel = []
 var world
 var playtime
 
+
+var Level
+var gOLocation = "res://scenes/game/"
+
+func _ready():
+	print("Start game")
+	#add stuff to scene here. Delete teh editor. From the scene first. 
+	#It is now called level. Fuck the editor and game mode. Just tell the items do their stuff.
+	#Not sure if I still need the Storage node. I'll leave it for now.
+	#add three test items.
+	Level = get_node("Level");
+	
+	#ball
+	var ball = load(gOLocation + "ball.scn").instance()
+	#can't do that because of rigidbody2d in ball.
+	ball.set_pos(Vector2(500, 300))
+	Level.add_child(ball);
+	
+	#tampoline
+	var tramp = load(gOLocation + "bounce.tscn").instance()
+	tramp.set_pos(Vector2(500, 500))
+	Level.add_child(tramp)
+	
+	#Pipe
+	var pipe = load(gOLocation + "pipe.tscn").instance()
+	pipe.set_pos(Vector2(500, 100))
+	Level.add_child(pipe)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 func store_playtime():
 	var playedfile = File.new()
 	var playedpath = "res://saves/playtimes.stayout"
@@ -16,62 +55,6 @@ func store_playtime():
 	playedfile.open(playedpath, File.WRITE)
 	playedfile.store_string(storage.to_json())
 	playedfile.close()
-	
-func restart_level():
-	#check if how many times we played
-	var playfile = File.new()
-	var playpath = "res://saves/playtimes.stayout"
-	#load it here if needed.
-	var loadingObject = {}
-	playfile.open(playpath, File.READ)
-	loadingObject.parse_json(playfile.get_line())
-	playfile.close()
-	playtime = loadingObject.played
-	
-	#ugly spawning for now.
-	var TestEditor = get_node("Editor")
-	
-	for o in TestEditor.get_children():
-		o.free()
-	
-	#make some sort of level file. Because this is ugly :)
-	var testInstance = load("res://scenes/editor/static.tscn").instance()
-	var resources = get_node("/root/resources")
-	testInstance.set_pos(Vector2(500, 200))
-	testInstance.set_object_name("ball")
-	testInstance.set_texture(resources.get_image("ball"))
-	testInstance.set_z(-20)
-	TestEditor.add_child(testInstance)
-	
-	var fInstance = load("res://scenes/editor/static.tscn").instance()
-	fInstance.set_pos(Vector2(1070, 700))
-	fInstance.set_object_name("finish")
-	fInstance.set_texture(resources.get_image("finish"))
-	fInstance.set_z(-20)
-	TestEditor.add_child(fInstance)
-	
-	get_node("HUD").get_node("SimulationButton").set_text("Start")
-	
-	var Bounce = load("res://scenes/editor/static.tscn").instance()
-	#var resources = get_node("/root/resources")
-	Bounce.set_pos(Vector2(520, 700))
-	Bounce.set_object_name("bounce")
-	Bounce.set_texture(resources.get_image("bounce"))
-	Bounce.set_z(-20)
-	#Pipe.set_rot(deg2rad(90))
-	#Pipe.set_scale(Vector2(2,2))
-	TestEditor.add_child(Bounce)
-	
-	var Pipe = load("res://scenes/editor/static.tscn").instance()
-	#var resources = get_node("/root/resources")
-	Pipe.set_pos(Vector2(500, 100))
-	Pipe.set_object_name("pipe")
-	Pipe.set_texture(resources.get_image("pipe"))
-	Pipe.set_z(-20)
-	#Pipe.set_rot(deg2rad(90))
-	#Pipe.set_scale(Vector2(2,2))
-	TestEditor.add_child(Pipe)
-	
 	
 func replay():
 	end_simulation()
@@ -140,67 +123,17 @@ func test_load_level():
 #Maybe move this to the game.
 func start_simulation():
 	simulating = true
+	for o in Level.get_children():
+		if o.has_method("startSimulating"):
+			print(o.get_name())
+			o.startSimulating()
 	
-	var Editor = get_node("Editor")
-	
-	#clear the storage object. Implement a version later that checks if a certain item hasn't changed
-	for child in get_node("Storage").get_children():
-		child.free()
-	
-	#store the objects from the editor
-	for object in Editor.get_children():
-		#create the storage object
-		var storageObject = load("res://scenes/storageobject.tscn").instance()
-		object.set_config({
-			test = "Thomas is een beetje zielig"
-		})
-		storageObject.setupObject(object.get_object_name(), object.get_transform(), object.get_staticObject(), object.get_config())
-		get_node("Storage").add_child(storageObject)
-	
-	#Delete editor mode
-	Editor.free()
-	
-	#add the simulation mode
-	var simulationInstance = load("res://scenes/worlds/simulation.tscn").instance()
-	simulationInstance.set_name("Simulation")
-	add_child(simulationInstance)
-	simulationInstance.load_level(get_node("Storage"))
 	
 func is_simulating():
 	return simulating
 
 func end_simulation():
 	simulating = false
-	
-	#remove simulation.
-	get_node("Simulation").free()
-
-	#add editor to world and its items.
-	var EditorInstance = load("res://scenes/worlds/editor.tscn").instance()
-	add_child(EditorInstance)
-	EditorInstance.load_level(get_node("Storage"))
-
-
-
-func win_level():
-	#add_to_log("Won level 1")
-	
-	var  HUD = get_node("HUD")
-	var winMessage = load("res://scenes/ui/WinMessage.tscn")
-	var winInstance = winMessage.instance()
-	
-	#find beter location
-	#1600 x 900
-	winInstance.set_pos(Vector2(600,400))
-	HUD.add_child(winInstance)
-	
-	if replay:
-		winInstance.get_node("Panel").get_node("Button1").free()
-	
-	
-	if !replay :
-		var Log = get_node("/root/log")
-		Log.save_log()
-		test_save_level()
-		#display the win message in hud.
-		#save_log()
+	for o in Level.get_children():
+		if o.has_method("endSimulating"):
+			o.endSimulating()
