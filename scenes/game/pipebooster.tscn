@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=8 format=1]
 
-[ext_resource path="res://scripts/gameObject.gd" type="Script" id=1]
+[ext_resource path="res://scripts/pipebooster.gd" type="Script" id=1]
 [ext_resource path="res://scripts/editor/dragable.gd" type="Script" id=2]
-[ext_resource path="res://assets/items/pipe.png" type="Texture" id=3]
+[ext_resource path="res://assets/items/pipebooster.png" type="Texture" id=3]
+[ext_resource path="res://scripts/game/booster.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -13,6 +14,11 @@ extents = Vector2( 9.7991, 1.65524 )
 
 custom_solver_bias = 0.0
 extents = Vector2( 38.8358, 3.95157 )
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 15.4517, 23.9761 )
 
 [node name="Pipe" type="Node2D"]
 
@@ -65,8 +71,43 @@ shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 1
 
+[node name="RigidBody2D 2" type="RigidBody2D" parent="."]
+
+input/pickable = false
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Matrix32( 2.65924, 0, 0, 1, 0, 0 )
+shapes/0/trigger = true
+collision/layers = 1
+collision/mask = 1
+mode = 3
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 3
+contact_monitor = true
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+script/script = ExtResource( 4 )
+velocity = Vector2( 500, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D 2"]
+
+transform/scale = Vector2( 2.65924, 1 )
+shape = SubResource( 3 )
+trigger = true
+_update_shape_index = 0
+
 [connection signal="mouse_enter" from="RigidBody2D" to="RigidBody2D" method="_on_mouse_enter"]
 
 [connection signal="mouse_exit" from="RigidBody2D" to="RigidBody2D" method="_on_mouse_exit"]
+
+[connection signal="body_enter" from="RigidBody2D 2" to="RigidBody2D 2" method="_on_RigidBody2D_2_body_enter"]
 
 

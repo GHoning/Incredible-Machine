@@ -1,3 +1,4 @@
+#extends "../editor/dragable.gd"
 extends RigidBody2D
 
 # Offset for the gravity

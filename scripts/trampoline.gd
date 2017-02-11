@@ -1,4 +1,5 @@
-extends Node
+#extends "gameObject.gd"
+extends Node2D
 
 var isSimulating = false
 var rigidbody

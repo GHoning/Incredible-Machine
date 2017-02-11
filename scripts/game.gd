@@ -30,11 +30,14 @@ func _ready():
 	Level.add_child(tramp)
 	
 	#Pipe
-	var pipe = load(gOLocation + "pipe.tscn").instance()
-	pipe.set_pos(Vector2(500, 100))
-	Level.add_child(pipe)
+	#var pipe = load(gOLocation + "pipe.tscn").instance()
+	#pipe.set_pos(Vector2(500, 100))
+	#Level.add_child(pipe)
 	
-	
+	#platform
+	var platform = load(gOLocation + "platform.tscn").instance()
+	platform.set_pos(Vector2(1000, 500))
+	Level.add_child(platform);
 	
 	
 	

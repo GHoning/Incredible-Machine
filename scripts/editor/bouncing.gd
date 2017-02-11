@@ -9,6 +9,8 @@ var attachedWidget = false
 var widget
 var cursor
 var cursormode = 0
+var simulating = false
+
 
 var offset
 
@@ -17,7 +19,7 @@ var offset
 #WHen they click a thing on the top they can turn the object.
 func _ready():
 	#get the cursor form the game.
-	print("Ready")
+	#print("Ready")
 	cursor = get_parent().get_parent().get_parent().get_parent().get_node("Cursor")
 
 #turning the dragging on and off
@@ -25,12 +27,14 @@ func dragable_on():
 	set_process_input(true)
 	set_fixed_process(true)
 	set_pickable(true)
+	simulating = false
 	
 
 func dragable_off():
 	set_process_input(false)
 	set_fixed_process(false)
 	set_pickable(false)
+	simulating = true
 
 #inputs to check if mouse is down and such.
 func _input(event):
@@ -103,3 +107,16 @@ func _on_mouse_enter():
 func _on_mouse_exit():
 	if not dragging:
 		mouse_over = false
+		
+# Offset for the gravity
+var v = Vector2(0, -9.8)
+export var bounciness_factor = 1.2
+
+#if hit bounce the hit object higher.
+func _on_RigidBody2D_body_enter(body):
+	print("Body")
+	if simulating :
+		print("simulation")
+		v += body.get_linear_velocity()
+		print(v)
+		body.set_linear_velocity(-v * bounciness_factor)
