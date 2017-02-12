@@ -22,3 +22,14 @@ func end_simulation():
 	for o in Level.get_children():
 		if o.has_method("end"):
 			o.end()
+			
+func save():
+	var savepath = "res://saves/"+get_node("/root/log").playername+"_savfile"+str(get_node("/root/log").startcounter)+".txt"
+	var savegame = File.new()
+	savegame.open(savepath, File.WRITE)
+	for o in Level.get_children():
+		if o.has_method("save"):
+			var savedata = o.save()
+			savegame.store_line(savedata.to_json())
+	
+	savegame.close()

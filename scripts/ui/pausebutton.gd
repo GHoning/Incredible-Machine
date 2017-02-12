@@ -11,5 +11,6 @@ func _pressed():
 	else:
 		Log.add_to_log("Started Simulation")
 		game.start_simulation()
+		game.save()
 		Log.save_log()
 		set_text("Stop")

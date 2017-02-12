@@ -25,3 +25,12 @@ func end():
 	rigidbody.set_mode(RigidBody2D.MODE_KINEMATIC)
 	rigidbody.set_transform(startTransform)
 	
+# returns a string of stuff to save for this object
+func save():
+	var savedict = {
+		filename = get_filename(),
+		posX = get_pos().x,
+		posY = get_pos().y,
+		rot = get_rot()
+	}
+	return savedict

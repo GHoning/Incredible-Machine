@@ -29,6 +29,8 @@ func setup(ObjectSize):
 			Vector2(ObjectSize.x, ObjectSize.y), 
 			Vector2(-ObjectSize.x, ObjectSize.y)]
 			
+	var thing = Vector2(2,2)
+			
 func _input(event):
 	if event.is_action_pressed("mouse_down"):
 		mouseDown = true
@@ -51,12 +53,15 @@ func _fixed_process(delta):
 	
 	if mouseOver and mouseDown :
 		startrot = get_parent().get_rot()
+		get_node("/root/player").set_turning(true)
 		turning = true
 		
 	if turning and not mouseDown:
 		get_node("/root/log").add_to_log(get_parent().get_parent().get_name()+" rotated from " + str(startrot) + " to " + str(get_parent().get_rot()))
 		turning = false
-		set_rot(get_parent().get_rot() * -1)
+		get_node("/root/player").set_turning(false)
+		#set_rot(get_parent().get_rot() * -1)
+		#update() to redraw the object
 		get_node("Sprite").show()
 		get_node("Sprite 2").show()
 		
@@ -78,7 +83,6 @@ func _draw():
 
 func _on_Delete_mouse_enter():
 	mouseOverDelete = true
-
 
 func _on_Delete_mouse_exit():
 	mouseOverDelete = false

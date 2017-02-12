@@ -15,3 +15,13 @@ func start():
 func end():
 	isSimulating = false
 	rigidbody.dragable_on()
+	
+	# returns a string of stuff to save for this object
+func save():
+	var savedict = {
+		filename = get_filename(),
+		posX = get_pos().x,
+		posY = get_pos().y,
+		rot = get_rot()
+	}
+	return savedict

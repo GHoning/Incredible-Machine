@@ -53,7 +53,7 @@ func _input(event):
 	
 #this needs to be done better.
 func _fixed_process(delta):
-	if mouse_down and mouse_over:
+	if mouse_down and mouse_over and !get_node("/root/player").get_turning():
 		selected = true
 		spawn_widget()
 	
