@@ -1,0 +1,67 @@
+[gd_scene load_steps=13 format=1]
+
+[ext_resource path="res://scripts/game.gd" type="Script" id=1]
+[ext_resource path="res://scenes/ui/hud.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/game/box.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/game/platform.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/game/ball.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/game/pipe.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/game/pipe_corner.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/game/pipe_booster.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/game/trampoline.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/game/conveyor.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/game/hamster_cage.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/game/rubberband.tscn" type="PackedScene" id=12]
+
+[node name="Game" type="Node"]
+
+script/script = ExtResource( 1 )
+__meta__ = { "__editor_plugin_screen__":"2D" }
+
+[node name="HUD" parent="." instance=ExtResource( 2 )]
+
+[node name="Storage" type="Node" parent="."]
+
+[node name="Level" type="Node" parent="."]
+
+[node name="box" parent="Level" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 1436.08, 755.052 )
+
+[node name="platform" parent="Level" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 1424.98, 560.737 )
+
+[node name="ball" parent="Level" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 793.915, 185.062 )
+
+[node name="pipe" parent="Level" instance=ExtResource( 6 )]
+
+transform/pos = Vector2( 1504.55, 416.389 )
+
+[node name="pipe_corner" parent="Level" instance=ExtResource( 7 )]
+
+transform/pos = Vector2( 1499, 297.95 )
+
+[node name="pipe_booster" parent="Level" instance=ExtResource( 8 )]
+
+transform/pos = Vector2( 1493.45, 175.809 )
+
+[node name="trampoline" parent="Level" instance=ExtResource( 9 )]
+
+transform/pos = Vector2( 1326.89, 109.186 )
+
+[node name="conveyor" parent="Level" instance=ExtResource( 10 )]
+
+transform/pos = Vector2( 1436.08, 507.069 )
+
+[node name="hamster" parent="Level" instance=ExtResource( 11 )]
+
+transform/pos = Vector2( 1386.11, 403.435 )
+
+[node name="rubberband" parent="Level" instance=ExtResource( 12 )]
+
+transform/pos = Vector2( 161.004, 172.107 )
+
+

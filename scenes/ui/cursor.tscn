@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://scripts/ui/cursor.gd" type="Script" id=1]
+[ext_resource path="res://assets/cursors/cursor_move.png" type="Texture" id=2]
+[ext_resource path="res://assets/cursors/cursor_turn.png" type="Texture" id=3]
+[ext_resource path="res://assets/cursors/cursor_small.png" type="Texture" id=4]
+
+
+[node name="Cursor" type="Node2D"]
+
+script/script = ExtResource( 1 )
+mousemode = null
+texture_M = ExtResource( 2 )
+texture_T = ExtResource( 3 )
+texture_N = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="."]
+
+

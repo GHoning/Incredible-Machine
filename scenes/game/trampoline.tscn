@@ -1,20 +1,15 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=5 format=1]
 
-[ext_resource path="res://scripts/game/pipe.gd" type="Script" id=1]
-[ext_resource path="res://scripts/edit/dragable_item.gd" type="Script" id=2]
-[ext_resource path="res://assets/items/pipe.png" type="Texture" id=3]
+[ext_resource path="res://scripts/game/trampoline.gd" type="Script" id=1]
+[ext_resource path="res://scripts/edit/draggable_bounce.gd" type="Script" id=2]
+[ext_resource path="res://assets/items/trampoline.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 9.7991, 1.65524 )
+extents = Vector2( 100.404, 74.6557 )
 
-[sub_resource type="RectangleShape2D" id=2]
-
-custom_solver_bias = 0.0
-extents = Vector2( 38.8358, 3.95157 )
-
-[node name="pipe" type="Node2D"]
+[node name="trampoline" type="Node2D"]
 
 script/script = ExtResource( 1 )
 
@@ -22,22 +17,19 @@ script/script = ExtResource( 1 )
 
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 4.0131, 0, 0, 2.31054, -0.091712, -22.7683 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
-shapes/1/shape = SubResource( 2 )
-shapes/1/transform = Matrix32( 1, 0, 0, 1, 0.794449, 20.2579 )
-shapes/1/trigger = false
 collision/layers = 1
 collision/mask = 1
-mode = 1
+mode = 3
 mass = 1.0
 friction = 1.0
 bounce = 0.0
 gravity_scale = 1.0
 custom_integrator = false
 continuous_cd = 0
-contacts_reported = 0
-contact_monitor = false
+contacts_reported = 3
+contact_monitor = true
 sleeping = false
 can_sleep = true
 velocity/linear = Vector2( 0, 0 )
@@ -45,6 +37,7 @@ velocity/angular = 0.0
 damp_override/linear = -1.0
 damp_override/angular = -1.0
 script/script = ExtResource( 2 )
+bounciness_factor = 1.2
 
 [node name="Sprite" type="Sprite" parent="RigidBody2D"]
 
@@ -52,18 +45,11 @@ texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 
-transform/pos = Vector2( -0.091712, -22.7683 )
-transform/scale = Vector2( 4.0131, 2.31054 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
-[node name="CollisionShape2D 2" type="CollisionShape2D" parent="RigidBody2D"]
-
-transform/pos = Vector2( 0.794449, 20.2579 )
-shape = SubResource( 2 )
-trigger = false
-_update_shape_index = 1
+[connection signal="body_enter" from="RigidBody2D" to="RigidBody2D" method="_on_RigidBody2D_body_enter"]
 
 [connection signal="mouse_enter" from="RigidBody2D" to="RigidBody2D" method="_on_mouse_enter"]
 

@@ -1,0 +1,83 @@
+[gd_scene load_steps=6 format=1]
+
+[ext_resource path="res://scripts/edit/selected_item_widget.gd" type="Script" id=1]
+[ext_resource path="res://assets/ui/turn.png" type="Texture" id=2]
+[ext_resource path="res://assets/ui/delete.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10.1667, 10 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
+
+[node name="selected_item_widget" type="Node2D"]
+
+script/script = ExtResource( 1 )
+color = Color( 0.065918, 0.722168, 0.9375, 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+
+transform/pos = Vector2( 159, -43 )
+z/z = -5
+texture = ExtResource( 2 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sprite"]
+
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 3.98052, 0, 0, 4.05707, -0.156298, 0.00380194 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/StaticBody2D"]
+
+transform/pos = Vector2( -0.156298, 0.00380194 )
+transform/scale = Vector2( 3.98052, 4.05707 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Sprite 2" type="Sprite" parent="."]
+
+transform/pos = Vector2( -102.83, -60.3713 )
+texture = ExtResource( 3 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sprite 2"]
+
+input/pickable = true
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 4.05707, 0, 0, 4.00604, 0.0563091, -0.323184 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite 2/StaticBody2D"]
+
+transform/pos = Vector2( 0.0563091, -0.323184 )
+transform/scale = Vector2( 4.05707, 4.00604 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+[connection signal="mouse_enter" from="Sprite/StaticBody2D" to="." method="_on_mouse_enter"]
+
+[connection signal="mouse_exit" from="Sprite/StaticBody2D" to="." method="_on_mouse_exit"]
+
+[connection signal="mouse_enter" from="Sprite 2/StaticBody2D" to="." method="_on_Delete_mouse_enter"]
+
+[connection signal="mouse_exit" from="Sprite 2/StaticBody2D" to="." method="_on_Delete_mouse_exit"]
+
+

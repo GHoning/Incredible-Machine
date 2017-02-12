@@ -40,6 +40,6 @@ func list_files_in_directory(path):
 
 func _on_Back_Button_pressed():
 	#go back to main menu.
-	var menu = load("res://scenes/menu.tscn").instance()
+	var menu = load("res://scenes/main_menu.tscn").instance()
 	get_parent().add_child(menu)
 	queue_free()

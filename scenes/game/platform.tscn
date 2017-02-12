@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=1]
 
-[ext_resource path="res://scripts/gameObject.gd" type="Script" id=1]
-[ext_resource path="res://scripts/editor/dragable.gd" type="Script" id=2]
+[ext_resource path="res://scripts/game/platform.gd" type="Script" id=1]
+[ext_resource path="res://scripts/edit/dragable_item.gd" type="Script" id=2]
 [ext_resource path="res://assets/items/platform.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -9,7 +9,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
-[node name="Node2D" type="Node2D"]
+[node name="platform" type="Node2D"]
 
 script/script = ExtResource( 1 )
 
