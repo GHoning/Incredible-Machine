@@ -5,6 +5,7 @@ var mouseDown = false
 var turning = false
 var mouseOverDelete = false
 var square
+var startrot
 export(Color) var color
 
 #get all the objects with a rubberband connector
@@ -45,12 +46,15 @@ func _fixed_process(delta):
 	
 	if mouseDown and mouseOverDelete:
 		print(get_parent().get_parent().get_name())
+		get_node("/root/log").add_to_log(get_parent().get_parent().get_name() + " has been deleted")
 		get_parent().get_parent().queue_free()
 	
 	if mouseOver and mouseDown :
+		startrot = get_parent().get_rot()
 		turning = true
 		
 	if turning and not mouseDown:
+		get_node("/root/log").add_to_log(get_parent().get_parent().get_name()+" rotated from " + str(startrot) + " to " + str(get_parent().get_rot()))
 		turning = false
 		set_rot(get_parent().get_rot() * -1)
 		get_node("Sprite").show()

@@ -1,6 +1,11 @@
 extends Node
 
+var playername = "default"
+var startcounter = 0
 var Log= []
+
+func set_player_name(s):
+	playername = s
 
 #adds the happening to an array of strings.
 func add_to_log(string):
@@ -17,13 +22,15 @@ func clear_log():
 	
 #save the current Log Array in to a .txt file
 func save_log():
-	var game = get_tree().get_root().get_node("World").get_node("Game")
-	
 	var logfile = File.new()
-	var logpath = "res://logs/logfile"+str(game.playtime)+".log"
+	#"+playername+"/
+	var logpath = "res://logs/"+playername+"_logfile"+str(startcounter)+".log"
 	logfile.open(logpath, File.WRITE)
 	
 	for line in Log:
 		logfile.store_string(line)
 		
 	logfile.close()
+	
+	clear_log()
+	startcounter = startcounter + 1

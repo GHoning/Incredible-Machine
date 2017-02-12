@@ -5,7 +5,7 @@
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "extends Button\n\nfunc _pressed():\n\tvar level = get_tree().get_root().get_node(\"World\").get_node(\"Game\").get_node(\"Level\")\n\t\n\tvar ballInstance = load(\"res://scenes/game/ball.tscn\").instance()\n\tballInstance.set_pos(Vector2(get_viewport_rect().size.x /2, get_viewport_rect().size.y /2))\n\tlevel.add_child(ballInstance)"
+script/source = "extends Button\n\nfunc _pressed():\n\tvar level = get_tree().get_root().get_node(\"World\").get_node(\"Game\").get_node(\"Level\")\n\t\n\tvar ballInstance = load(\"res://scenes/game/ball.tscn\").instance()\n\tballInstance.set_pos(Vector2(get_viewport_rect().size.x /2, get_viewport_rect().size.y /2))\n\tlevel.add_child(ballInstance)\n\t\n\tget_node(\"/root/log\").add_to_log(ballInstance.get_name() + \" has been added\")"
 
 [sub_resource type="GDScript" id=2]
 

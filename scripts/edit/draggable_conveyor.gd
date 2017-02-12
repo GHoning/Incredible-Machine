@@ -12,6 +12,8 @@ var cursormode = 0
 
 var offset
 
+var startpos
+
 #first click to select the dragable to select it. It draws a selection thing. 
 #When the user clicks on the object again they can move it.
 #WHen they click a thing on the top they can turn the object.
@@ -57,6 +59,8 @@ func _fixed_process(delta):
 			
 	if mouse_down and mouse_over and selected  and !dragging:
 		dragging = true
+		#store start pos here
+		startpos = get_parent().get_global_pos()
 		offset = get_parent().get_global_pos() - get_global_mouse_pos()
 		
 	if selected and mouse_over:
@@ -67,8 +71,11 @@ func _fixed_process(delta):
 	if dragging :
 		get_parent().set_global_pos(get_global_mouse_pos() + offset)
 		
-	if !mouse_down :
+	if !mouse_down && dragging :
 		dragging = false
+		#add the log here
+		get_node("/root/log").add_to_log("Moved: "+get_parent().get_name()+" from " + str(startpos)+ " to " + str(get_parent().get_global_pos()))
+		
 		
 #change cursor
 func changeCursor(i):
