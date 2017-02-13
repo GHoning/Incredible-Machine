@@ -15,9 +15,9 @@ export(Color) var color
 
 func _ready():
 	#for each item in level
-	for o in get_parent().get_parent().get_parent().get_children() :
-		if o.has_method("connectRubberBand") :
-			o.show_connector()
+	#for o in get_parent().get_parent().get_parent().get_children() :
+		#if o.has_method("show_connector") :
+			#o.show_connector()
 	
 	set_fixed_process(true)
 	set_process_input(true)
@@ -38,6 +38,13 @@ func _input(event):
 	if event.is_action_released("mouse_down"):
 		mouseDown = false
 	
+func mouse_over_socket():
+	if get_node("RigidBody2D").mouse_over() or get_node("RigidBody2D 2").mouse_over() :
+		return true
+	else :
+		return false
+
+
 func _fixed_process(delta):
 	
 	if mouseDown and mouseOverDelete:
@@ -46,9 +53,10 @@ func _fixed_process(delta):
 		
 
 func _exit_tree():
-	for o in get_parent().get_parent().get_parent().get_children() :
-		if o.has_method("connectRubberBand") :
-			o.hide_connector()
+	pass
+	#for o in get_parent().get_parent().get_parent().get_children() :
+		#if o.has_method("hide_connector") :
+			#o.hide_connector()
 
 		
 	

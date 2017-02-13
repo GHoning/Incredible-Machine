@@ -54,14 +54,18 @@ transform/pos = Vector2( 1326.89, 109.186 )
 
 [node name="conveyor" parent="Level" instance=ExtResource( 10 )]
 
-transform/pos = Vector2( 1436.08, 507.069 )
+transform/pos = Vector2( 790.214, 273.891 )
 
 [node name="hamster" parent="Level" instance=ExtResource( 11 )]
 
-transform/pos = Vector2( 1386.11, 403.435 )
+transform/pos = Vector2( 1038.19, 198.016 )
 
 [node name="rubberband" parent="Level" instance=ExtResource( 12 )]
 
 transform/pos = Vector2( 161.004, 172.107 )
+
+[node name="ball 2" parent="Level" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 1036.35, 66.6223 )
 
 

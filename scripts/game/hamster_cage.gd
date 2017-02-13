@@ -2,11 +2,15 @@ extends Node
 
 var isSimulating = false
 var rigidbody
+var rubberband
 
 func _ready():
 	rigidbody = get_node("RigidBody2D")
-	get_node("bandselector").hide()
+	#get_node("bandselector").hide()
 	rigidbody.dragable_on()
+
+func get_powered():
+	return rigidbody._get_powered()
 
 func start():
 	isSimulating = true
@@ -16,8 +20,9 @@ func end():
 	isSimulating = false
 	rigidbody.dragable_on()
 	
-func connectRubberBand():
-	pass
+func connect_rubberband(o):
+	rubberband = o
+	print("geplakt")
 	
 func show_connector():
 	get_node("bandselector").show()

@@ -47,7 +47,7 @@ func _fixed_process(delta):
 		spawn_widget()
 	
 	if attachedWidget :
-		if mouse_down and !mouse_over and !widget.mouseOver and !widget.turning and !widget.mouseOverDelete:
+		if mouse_down and !mouse_over and !widget.mouseOver and !widget.turning and !widget.mouseOverDelete and !widget.mouse_over_socket():
 			selected = false
 			remove_widget()
 	else :
@@ -93,7 +93,8 @@ func spawn_widget():
 	if(!attachedWidget):
 		attachedWidget = true
 		var widgetInstance = load("res://scenes/ui/rubberband_widget.tscn").instance()
-		widgetInstance.setup(Vector2(55,55))
+		widgetInstance.setup(Vector2(100,100))
+		widgetInstance.set_pos(Vector2(50,50))
 		widgetInstance.set_rot(get_rot() * -1)
 		add_child(widgetInstance)
 		widget = get_node("rubberband_widget")
