@@ -58,7 +58,7 @@ func _fixed_process(delta):
 		spawn_widget()
 	
 	if attachedWidget :
-		if mouse_down and !mouse_over and !widget.mouseOver and !widget.turning and !widget.mouseOverDelete:
+		if mouse_down and !mouse_over and !widget.mouseOverDelete:
 			selected = false
 			remove_widget()
 	else :
@@ -103,11 +103,11 @@ func changeCursor(i):
 func spawn_widget():
 	if(!attachedWidget):
 		attachedWidget = true
-		var widgetInstance = load("res://scenes/ui/selected_item_widget.tscn").instance()
+		var widgetInstance = load("res://scenes/ui/selected_item_widget_no_turn.tscn").instance()
 		widgetInstance.setup(get_node("Sprite").get_texture().get_size())
 		widgetInstance.set_rot(get_rot() * -1)
 		add_child(widgetInstance)
-		widget = get_node("selected_item_widget")
+		widget = get_node("selected_item_widget_no_turn")
 	
 func remove_widget():
 	if(attachedWidget):
@@ -143,3 +143,4 @@ func _timer_finished():
 	
 func set_sim(b):
 	sim = b
+	connectingbodies.clear()

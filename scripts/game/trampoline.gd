@@ -13,11 +13,13 @@ func _ready():
 
 func start():
 	isSimulating = true
+	rigidbody.set_simulating(true)
 	if !staticObject:
 		rigidbody.dragable_off()
 	
 func end():
 	isSimulating = false
+	rigidbody.set_simulating(false)
 	if !staticObject:
 		rigidbody.dragable_on()
 	

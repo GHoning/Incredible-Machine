@@ -167,8 +167,10 @@ staticObject = null
 
 [node name="pipe_booster 3" parent="." instance=ExtResource( 11 )]
 
+
 transform/pos = Vector2( 1337.01, 586.355 )
 transform/rot = 90.0
 transform/scale = Vector2( 1.8, 1.8 )
+
 
 

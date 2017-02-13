@@ -4,11 +4,15 @@ var simulating
 var Level
 var gOLocation = "res://scenes/game/"
 var Win
-
-
-func _ready():
+	
+	
+func win_level():
+	var win = load("res://scenes/ui/win_widget.tscn").instance()
+	add_child(win)
+	
+func play_level1():
 	Level = get_node("Level");
-	Level.queue_free()
+	Level.free()
 	
 	var level1 = load("res://scenes/levels/Level1.tscn").instance()
 	level1.set_name("Level")
@@ -19,17 +23,13 @@ func _ready():
 	for o in get_children():
 		print(o.get_name())
 	
-	Level = get_node("@Level@9")
-		
-func win_level():
-	var win = load("res://scenes/ui/win_widget.tscn").instance()
-	add_child(win)
+	Level = get_node("Level")
+	
 	
 func play_level2():
-	end_simulation()
-	#reset text on start button
-	get_node("HUD").get_node("SimulationButton").set_text("Start")
-	Level.queue_free()
+	Level = get_node("Level");
+	Level.free()
+	
 	var level2 = load("res://scenes/levels/Level2.tscn").instance()
 	level2.set_name("Level")
 	add_child(level2)
@@ -38,7 +38,6 @@ func play_level2():
 	
 	for o in get_children():
 		print(o.get_name())
-	
 
 	Level = get_node("Level")
 	

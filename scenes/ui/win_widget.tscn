@@ -2,7 +2,7 @@
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "#oops so ugly\nextends Button\n\n\n\nfunc _on_Button_pressed():\n\tget_parent().get_parent().get_parent().play_level2()\n\tget_parent().get_parent().queue_free()\n"
+script/source = "#oops so ugly\nextends Button\n\nfunc _on_Button_pressed():\n\t#get_parent().get_parent().get_parent().play_level2()\n\t#get_parent().get_parent().queue_free()\n\t\n\tvar menu = load(\"res://scenes/main_menu.tscn\").instance()\n\tget_tree().get_root().get_node(\"World\").add_child(menu)\n\t\n\tvar game = get_tree().get_root().get_node(\"World\").get_node(\"Game\")\n\tgame.queue_free()\n"
 
 [node name="Container" type="Container"]
 
