@@ -5,12 +5,16 @@ var rigidbody
 var rubberband
 
 export(bool) var staticObject
+export(String) var rubname
 
 func _ready():
 	rigidbody = get_node("RigidBody2D")
 	#get_node("bandselector").hide()
 	if !staticObject:
 		rigidbody.dragable_on()
+		
+	if staticObject:
+		rubberband = get_parent().get_node(rubname)
 		
 func clear_rubberband():
 	rubberband = null
@@ -20,11 +24,13 @@ func get_powered():
 
 func start():
 	isSimulating = true
+	rigidbody.set_sim(true)
 	if !staticObject:
 		rigidbody.dragable_off()
 	
 func end():
 	isSimulating = false
+	rigidbody.set_sim(false)
 	if !staticObject:
 		rigidbody.dragable_on()
 	

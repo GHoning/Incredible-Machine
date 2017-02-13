@@ -113,6 +113,9 @@ func _on_mouse_exit():
 	if not dragging:
 		mouse_over = false
 
+func set_sim(b):
+	sim = b
+
 var sim  = false
 export var velocity = Vector2(80,0)
 

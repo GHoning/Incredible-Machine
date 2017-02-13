@@ -10,18 +10,26 @@ var offset2 = Vector2(-20, 0)
 var socket_object1
 var socket_object2
 
+export(String) var name_object1
+export(String) var name_object2
+
+export(bool) var staticObject
+
 var isSimulating = false
 var rigidbody
 
 export(Color) var color
 
-#if anything is attached draw two lines between them
-func check_update_graphic():
-	pass
-
 func _ready():
 	rigidbody = get_node("RigidBody2D")
-	rigidbody.dragable_on()
+	
+	if !staticObject :
+		rigidbody.dragable_on()
+		
+	if staticObject :
+		socket_object1 = get_parent().get_node(name_object1)
+		socket_object2 = get_parent().get_node(name_object2)
+		update()
 	
 func has_power():
 	if socket_object1 :
@@ -54,11 +62,13 @@ func set_socket_object2(o):
 
 func startSimulating():
 	isSimulating = true
-	rigidbody.dragable_off()
+	if !staticObject :
+		rigidbody.dragable_off()
 	
 func endSimulating():
 	isSimulating = false
-	rigidbody.dragable_on()
+	if !staticObject :
+		rigidbody.dragable_on()
 	
 	# returns a string of stuff to save for this object
 func save():

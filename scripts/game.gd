@@ -14,7 +14,10 @@ func _ready():
 	level1.set_name("Level")
 	add_child(level1)
 	
-	Level = get_node("@Level@10")
+	for o in get_children():
+		print(o.get_name())
+	
+	Level = get_node("@Level@9")
 		
 func win_level():
 	var win = load("res://scenes/ui/win_widget.tscn").instance()
@@ -28,6 +31,10 @@ func play_level2():
 	var level2 = load("res://scenes/levels/Level2.tscn").instance()
 	level2.set_name("Level")
 	add_child(level2)
+	
+	for o in get_children():
+		print(o.get_name())
+	
 
 	Level = get_node("Level")
 	

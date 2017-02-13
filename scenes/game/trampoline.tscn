@@ -7,11 +7,12 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 100.404, 74.6557 )
+extents = Vector2( 40.0022, 26.1135 )
 
 [node name="trampoline" type="Node2D"]
 
 script/script = ExtResource( 1 )
+staticObject = null
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 
