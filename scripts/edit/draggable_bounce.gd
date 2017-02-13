@@ -125,4 +125,5 @@ export var bounciness_factor = 1.2
 func _on_RigidBody2D_body_enter(body):
 	if simulating :
 		v += body.get_linear_velocity()
-		body.set_linear_velocity(-v * bounciness_factor)
+		v.y = -v.y
+		body.set_linear_velocity(v * bounciness_factor)

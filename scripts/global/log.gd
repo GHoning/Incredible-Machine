@@ -1,11 +1,15 @@
 extends Node
 
 var playername = "default"
+var levelname = ""
 var startcounter = 0
 var Log= []
 
 func set_player_name(s):
 	playername = s
+	
+func set_level_name(s):
+	levelname = s
 
 #adds the happening to an array of strings.
 func add_to_log(string):
@@ -24,7 +28,7 @@ func clear_log():
 func save_log():
 	var logfile = File.new()
 	#"+playername+"/
-	var logpath = "res://logs/"+playername+"_logfile"+str(startcounter)+".log"
+	var logpath = "res://logs/"+playername+"_"+levelname+"_logfile"+str(startcounter)+".log"
 	logfile.open(logpath, File.WRITE)
 	
 	for line in Log:
