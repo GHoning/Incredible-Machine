@@ -5,9 +5,10 @@
 [ext_resource path="res://assets/cursors/cursor_turn.png" type="Texture" id=3]
 [ext_resource path="res://assets/cursors/cursor_small.png" type="Texture" id=4]
 
-
 [node name="Cursor" type="Node2D"]
 
+z/z = 2000
+z/relative = false
 script/script = ExtResource( 1 )
 mousemode = null
 texture_M = ExtResource( 2 )

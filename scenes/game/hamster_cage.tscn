@@ -18,6 +18,8 @@ extents = Vector2( 10, 10 )
 [node name="hamster" type="Node2D"]
 
 script/script = ExtResource( 1 )
+staticObject = null
+rubname = null
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 
@@ -37,7 +39,7 @@ continuous_cd = 0
 contacts_reported = 5
 contact_monitor = true
 sleeping = false
-can_sleep = true
+can_sleep = false
 velocity/linear = Vector2( 0, 0 )
 velocity/angular = 0.0
 damp_override/linear = -1.0

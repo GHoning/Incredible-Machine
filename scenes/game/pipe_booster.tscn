@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://scripts/game/pipe_booster.gd" type="Script" id=1]
-[ext_resource path="res://scripts/edit/dragable_item.gd" type="Script" id=2]
+[ext_resource path="res://scripts/edit/dragable_item_box.gd" type="Script" id=2]
 [ext_resource path="res://assets/items/pipe_booster.png" type="Texture" id=3]
 [ext_resource path="res://scripts/game/components/booster.gd" type="Script" id=4]
 
@@ -23,6 +23,7 @@ extents = Vector2( 15.4517, 23.9761 )
 [node name="pipe_booster" type="Node2D"]
 
 script/script = ExtResource( 1 )
+staticObject = null
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 
@@ -95,7 +96,7 @@ velocity/angular = 0.0
 damp_override/linear = -1.0
 damp_override/angular = -1.0
 script/script = ExtResource( 4 )
-velocity = Vector2( 80, 0 )
+velocity = Vector2( 3000, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D 2"]
 
