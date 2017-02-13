@@ -48,7 +48,7 @@ func _input(event):
 	
 #this needs to be done better.
 func _fixed_process(delta):
-	if mouse_down and mouse_over and !get_node("/root/player").get_turning():
+	if mouse_down and mouse_over and !get_node("/root/player").get_turning() and !get_node("/root/player").get_moving():
 		selected = true
 		spawn_widget()
 	
@@ -63,6 +63,7 @@ func _fixed_process(delta):
 			
 	if mouse_down and mouse_over and selected  and !dragging:
 		dragging = true
+		get_node("/root/player").set_moving(true)
 		#store start pos here
 		startpos = get_parent().get_global_pos()
 		offset = get_parent().get_global_pos() - get_global_mouse_pos()
@@ -77,6 +78,7 @@ func _fixed_process(delta):
 		
 	if !mouse_down && dragging :
 		dragging = false
+		get_node("/root/player").set_moving(false)
 		#add the log here
 		get_node("/root/log").add_to_log("Moved: "+get_parent().get_name()+" from " + str(startpos)+ " to " + str(get_parent().get_global_pos()))
 		
