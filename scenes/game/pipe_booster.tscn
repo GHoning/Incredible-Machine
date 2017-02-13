@@ -23,6 +23,7 @@ extents = Vector2( 15.4517, 23.9761 )
 [node name="pipe_booster" type="Node2D"]
 
 script/script = ExtResource( 1 )
+staticObject = null
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 
@@ -95,7 +96,7 @@ velocity/angular = 0.0
 damp_override/linear = -1.0
 damp_override/angular = -1.0
 script/script = ExtResource( 4 )
-velocity = Vector2( 80, 0 )
+velocity = Vector2( 1300, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D 2"]
 

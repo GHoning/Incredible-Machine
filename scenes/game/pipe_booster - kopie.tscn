@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=8 format=1]
 
-[ext_resource path="res://scripts/game/pipe.gd" type="Script" id=1]
+[ext_resource path="res://scripts/game/pipe_booster.gd" type="Script" id=1]
 [ext_resource path="res://scripts/edit/dragable_item.gd" type="Script" id=2]
-[ext_resource path="res://assets/items/pipe.png" type="Texture" id=3]
+[ext_resource path="res://assets/items/pipe_booster.png" type="Texture" id=3]
+[ext_resource path="res://scripts/game/components/booster.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -17,9 +18,9 @@ extents = Vector2( 38.8358, 3.95157 )
 [sub_resource type="RectangleShape2D" id=3]
 
 custom_solver_bias = 0.0
-extents = Vector2( 10, 10 )
+extents = Vector2( 15.4517, 23.9761 )
 
-[node name="pipe" type="Node2D"]
+[node name="pipe_booster" type="Node2D"]
 
 script/script = ExtResource( 1 )
 staticObject = null
@@ -28,14 +29,11 @@ staticObject = null
 
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 4.0131, 0, 0, 1.70054, -0.091712, -26.3813 )
+shapes/0/transform = Matrix32( 4.0131, 0, 0, 2.31054, -0.091712, -22.7683 )
 shapes/0/trigger = false
 shapes/1/shape = SubResource( 2 )
-shapes/1/transform = Matrix32( 1, 0, 0, 0.633655, 0.794449, 22.8046 )
+shapes/1/transform = Matrix32( 1, 0, 0, 1, 0.794449, 20.2579 )
 shapes/1/trigger = false
-shapes/2/shape = SubResource( 3 )
-shapes/2/transform = Matrix32( 3.92086, 0, 0, 2.62875, 1.17754, -0.717168 )
-shapes/2/trigger = true
 collision/layers = 1
 collision/mask = 1
 mode = 1
@@ -61,30 +59,56 @@ texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 
-transform/pos = Vector2( -0.091712, -26.3813 )
-transform/scale = Vector2( 4.0131, 1.70054 )
+transform/pos = Vector2( -0.091712, -22.7683 )
+transform/scale = Vector2( 4.0131, 2.31054 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
 [node name="CollisionShape2D 2" type="CollisionShape2D" parent="RigidBody2D"]
 
-transform/pos = Vector2( 0.794449, 22.8046 )
-transform/scale = Vector2( 1, 0.633655 )
+transform/pos = Vector2( 0.794449, 20.2579 )
 shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 1
 
-[node name="CollisionShape2D 3" type="CollisionShape2D" parent="RigidBody2D"]
+[node name="RigidBody2D 2" type="RigidBody2D" parent="."]
 
-transform/pos = Vector2( 1.17754, -0.717168 )
-transform/scale = Vector2( 3.92086, 2.62875 )
+input/pickable = false
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Matrix32( 2.65924, 0, 0, 1, 0, 0 )
+shapes/0/trigger = true
+collision/layers = 1
+collision/mask = 1
+mode = 3
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 3
+contact_monitor = true
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+script/script = ExtResource( 4 )
+velocity = Vector2( 0, -1300 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D 2"]
+
+transform/scale = Vector2( 2.65924, 1 )
 shape = SubResource( 3 )
 trigger = true
-_update_shape_index = 2
+_update_shape_index = 0
 
 [connection signal="mouse_enter" from="RigidBody2D" to="RigidBody2D" method="_on_mouse_enter"]
 
 [connection signal="mouse_exit" from="RigidBody2D" to="RigidBody2D" method="_on_mouse_exit"]
+
+[connection signal="body_enter" from="RigidBody2D 2" to="RigidBody2D 2" method="_on_RigidBody2D_2_body_enter"]
 
 
