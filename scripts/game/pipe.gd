@@ -3,17 +3,22 @@ extends Node
 var isSimulating = false
 var rigidbody
 
+export(bool) var staticObject
+
 func _ready():
 	rigidbody = get_node("RigidBody2D")
-	rigidbody.dragable_on()
+	if !staticObject:
+		rigidbody.dragable_on()
 
 func start():
 	isSimulating = true
-	rigidbody.dragable_off()
+	if !staticObject:
+		rigidbody.dragable_off()
 	
 func end():
 	isSimulating = false
-	rigidbody.dragable_on()
+	if !staticObject:
+		rigidbody.dragable_on()
 	
 	# returns a string of stuff to save for this object
 func save():

@@ -24,10 +24,14 @@ func _ready():
 	rigidbody.dragable_on()
 	
 func has_power():
-	if socket_object1.has_method("get_powered") :
-		return socket_object1.get_powered()
-	elif socket_object2.has_method("get_powered") :
-		return socket_object2.get_powered()
+	if socket_object1 :
+		if socket_object1.has_method("get_powered") :
+			return socket_object1.get_powered()
+			
+	elif socket_object2 :
+		if socket_object2.has_method("get_powered") :
+			return socket_object2.get_powered()
+			
 	else :
 		return false
 
@@ -58,13 +62,56 @@ func endSimulating():
 	
 	# returns a string of stuff to save for this object
 func save():
-	var savedict = {
-		filename = get_filename(),
-		posX = get_pos().x,
-		posY = get_pos().y,
-		rot = get_rot()
-	}
+	var savedict
+	if socket_object1 and socket_object2 :
+		savedict = {
+			filename = get_filename(),
+			posX = get_pos().x,
+			posY = get_pos().y,
+			rot = get_rot(),
+			sobject1 = socket_object1.get_name(),
+			sobject2 = socket_object2.get_name(),
+			objectname = get_name()
+		}
+	elif !socket_object1 and socket_object2 :
+		savedict = {
+			filename = get_filename(),
+			posX = get_pos().x,
+			posY = get_pos().y,
+			rot = get_rot(),
+			sobject1 = "null",
+			sobject2 = socket_object2.get_name(),
+			objectname = get_name()
+		}
+	elif socket_object1 and !socket_object2 :
+		savedict = {
+			filename = get_filename(),
+			posX = get_pos().x,
+			posY = get_pos().y,
+			rot = get_rot(),
+			sobject1 = socket_object1.get_name(),
+			sobject2 = "null",
+			objectname = get_name()
+		}
+	else :
+		savedict = {
+			filename = get_filename(),
+			posX = get_pos().x,
+			posY = get_pos().y,
+			rot = get_rot(),
+			sobject1 = "null",
+			sobject2 = "null",
+			objectname = get_name()
+		}
+		
 	return savedict
+	
+func _exit_tree():
+	if socket_object1 :
+		socket_object1.clear_rubberband()
+	
+	if socket_object2 :
+		socket_object2.clear_rubberband()
 	
 func _draw():
 	if socket_object1 and !socket_object2 :

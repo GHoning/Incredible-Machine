@@ -4,6 +4,7 @@ var simulating
 var Level
 var gOLocation = "res://scenes/game/"
 
+
 func _ready():
 	Level = get_node("Level");
 	

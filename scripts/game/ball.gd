@@ -4,14 +4,23 @@ var isSimulating = false
 var rigidbody
 var startTransform
 
+export(bool) var staticObject
+
 func _ready():
 	rigidbody = get_node("RigidBody2D")
-	rigidbody.dragable_on()
+	
+	if !staticObject:
+		rigidbody.dragable_on()
+	
+	
 	rigidbody.set_mode(RigidBody2D.MODE_KINEMATIC)
 
 func start():
 	isSimulating = true
-	rigidbody.dragable_off()
+	
+	if !staticObject:
+		rigidbody.dragable_off()
+	
 	rigidbody.set_gravity_scale(1)
 	startTransform = rigidbody.get_transform()
 	rigidbody.set_mode(RigidBody2D.MODE_RIGID)
@@ -20,7 +29,10 @@ func start():
 	
 func end():
 	isSimulating = false
-	rigidbody.dragable_on()
+	
+	if !staticObject:
+		rigidbody.dragable_on()
+		
 	rigidbody.set_gravity_scale(0)
 	rigidbody.set_mode(RigidBody2D.MODE_KINEMATIC)
 	rigidbody.set_transform(startTransform)
