@@ -1,5 +1,17 @@
-[gd_scene format=1]
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://scenes/game/ball.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/game/box.tscn" type="PackedScene" id=2]
 
 [node name="Level2" type="Node"]
+
+[node name="ball" parent="." instance=ExtResource( 1 )]
+
+transform/pos = Vector2( 139.476, 128.318 )
+staticObject = null
+
+[node name="box" parent="." instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 1422.65, 705.746 )
 
 

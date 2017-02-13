@@ -1,0 +1,68 @@
+[gd_scene load_steps=2 format=1]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "#oops so ugly\nextends Button\n\n\n\nfunc _on_Button_pressed():\n\tget_parent().get_parent().get_parent().play_level2()\n\tget_parent().get_parent().queue_free()\n"
+
+[node name="Container" type="Container"]
+
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 158.0
+margin/top = -3.0
+margin/right = -219.0
+margin/bottom = -145.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 367.0
+margin/bottom = 169.0
+alignment = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
+
+rect/min_size = Vector2( 0, 50 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 367.0
+margin/bottom = 50.0
+bbcode/enabled = false
+bbcode/bbcode = "Good Job"
+visible_characters = -1
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 54.0
+margin/right = 367.0
+margin/bottom = 74.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Ok"
+flat = false
+script/script = SubResource( 1 )
+
+[connection signal="pressed" from="VBoxContainer/Button" to="VBoxContainer/Button" method="_on_Button_pressed"]
+
+

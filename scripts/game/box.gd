@@ -29,3 +29,9 @@ func save():
 		rot = get_rot()
 	}
 	return savedict
+
+func _on_Area2D_body_enter( body ):
+	if isSimulating && body.get_parent().get_filename() == "res://scenes/game/ball.tscn" :
+		print("ball") 
+		#do stuff here to end level
+		get_parent().get_parent().win_level()

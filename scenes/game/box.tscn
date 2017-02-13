@@ -27,6 +27,7 @@ extents = Vector2( 63, 1.38426 )
 [node name="box" type="Node2D"]
 
 script/script = ExtResource( 1 )
+staticObject = null
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -108,6 +109,8 @@ _update_shape_index = 2
 
 z/z = -5
 texture = ExtResource( 3 )
+
+[connection signal="body_enter" from="Area2D" to="." method="_on_Area2D_body_enter"]
 
 [connection signal="mouse_enter" from="RigidBody2D" to="RigidBody2D" method="_on_mouse_enter"]
 

@@ -3,10 +3,33 @@ extends Node
 var simulating
 var Level
 var gOLocation = "res://scenes/game/"
+var Win
 
 
 func _ready():
 	Level = get_node("Level");
+	Level.queue_free()
+	
+	var level1 = load("res://scenes/levels/Level1.tscn").instance()
+	level1.set_name("Level")
+	add_child(level1)
+	
+	Level = get_node("@Level@10")
+		
+func win_level():
+	var win = load("res://scenes/ui/win_widget.tscn").instance()
+	add_child(win)
+	
+func play_level2():
+	end_simulation()
+	#reset text on start button
+	get_node("HUD").get_node("SimulationButton").set_text("Start")
+	Level.queue_free()
+	var level2 = load("res://scenes/levels/Level2.tscn").instance()
+	level2.set_name("Level")
+	add_child(level2)
+
+	Level = get_node("Level")
 	
 func is_simulating():
 	return simulating

@@ -27,7 +27,6 @@ __meta__ = { "__editor_plugin_screen__":"2D" }
 [node name="box" parent="Level" instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 1436.08, 755.052 )
-staticObject = null
 
 [node name="platform" parent="Level" instance=ExtResource( 4 )]
 
