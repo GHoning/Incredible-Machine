@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 40.0022, 26.1135 )
+extents = Vector2( 40.0022, 30.7767 )
 
 [node name="trampoline" type="Node2D"]
 
@@ -38,7 +38,7 @@ velocity/angular = 0.0
 damp_override/linear = -1.0
 damp_override/angular = -1.0
 script/script = ExtResource( 2 )
-bounciness_factor = 1.2
+bounciness_factor = 1.8
 
 [node name="Sprite" type="Sprite" parent="RigidBody2D"]
 
