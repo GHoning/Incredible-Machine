@@ -11,7 +11,10 @@ script/source = "extends Button\n\nfunc _pressed():\n\tvar level = get_tree().ge
 
 script/source = "extends Button\n\nfunc _pressed():\n\tvar menu = load(\"res://scenes/main_menu.tscn\").instance()\n\tget_tree().get_root().get_node(\"World\").add_child(menu)\n\t\n\tvar game = get_tree().get_root().get_node(\"World\").get_node(\"Game\")\n\tgame.queue_free()"
 
-[node name="HUD" type="Node"]
+[node name="HUD" type="Node2D"]
+
+z/z = 900
+z/relative = false
 
 [node name="SimulationButton" type="Button" parent="."]
 
