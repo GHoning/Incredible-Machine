@@ -129,3 +129,4 @@ func _on_RigidBody2D_body_enter(body):
 		v += body.get_linear_velocity()
 		v.y = -v.y
 		body.set_linear_velocity(v * bounciness_factor)
+		v = Vector2(0, -9.8)
