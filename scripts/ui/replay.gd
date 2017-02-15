@@ -22,7 +22,7 @@ func _on_Replay_pressed():
 
 
 func _on_Timeline_pressed():
-	var timeline = load("res://scenes/ui/timelinewidget.tscn").instance()
+	var timeline = load("res://scenes/ui/timeline_widget.tscn").instance()
 	get_parent().get_parent().add_child(timeline)
 	timeline.create_timeline(logPath)
 	get_parent().queue_free()

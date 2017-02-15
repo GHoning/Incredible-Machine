@@ -10,15 +10,10 @@ func _ready():
 	
 	for f in logfiles:
 		
-		var replaywidget = load("res://scenes/ui/replay.tscn").instance()
-		get_node("VBoxContainer").add_child(replaywidget)
+		var replaywidget = load("res://scenes/ui/replay_widget.tscn").instance()
+		get_node("VBoxContainer").get_node("VBoxContainerX").add_child(replaywidget)
 		replaywidget.set_path(logdirectory + "/"+ f, logfiles.find(f) + 1)
 		
-		#spawn a widget to display the time line.
-		#var timeline = load("res://scenes/ui/timelinewidget.tscn").instance()
-		#get_node("VBoxContainer").add_child(timeline)
-		#pass it the log file I want it to display
-		#timeline.create_timeline(logdirectory + "/" + f)
 	
 func list_files_in_directory(path):
 	var files = []

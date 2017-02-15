@@ -10,7 +10,7 @@ func create_timeline(logpath):
 	while(!logfile.eof_reached()):
 		var logline = logfile.get_line()
 		if !logline.length() == 0 :
-			var event = load("res://scenes/ui/eventwidget.tscn").instance()
+			var event = load("res://scenes/ui/event_widget.tscn").instance()
 			timeline.add_child(event)
 			event.set_bbcode(logline)
 		
