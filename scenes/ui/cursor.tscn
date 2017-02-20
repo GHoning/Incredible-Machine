@@ -17,4 +17,6 @@ texture_N = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
 
+visibility/visible = false
+
 

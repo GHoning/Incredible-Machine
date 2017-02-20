@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://scripts/ui/pausebutton.gd" type="Script" id=1]
 [ext_resource path="res://assets/ui/hub_bg.png" type="Texture" id=2]
@@ -10,6 +10,10 @@ script/source = "extends Button\n\nfunc _pressed():\n\tvar level = get_tree().ge
 [sub_resource type="GDScript" id=2]
 
 script/source = "extends Button\n\nfunc _pressed():\n\tvar menu = load(\"res://scenes/main_menu.tscn\").instance()\n\tget_tree().get_root().get_node(\"World\").add_child(menu)\n\t\n\tvar game = get_tree().get_root().get_node(\"World\").get_node(\"Game\")\n\tgame.queue_free()"
+
+[sub_resource type="GDScript" id=3]
+
+script/source = "extends Button\n\nfunc _pressed():\n\tvar game = get_tree().get_root().get_node(\"World\").get_node(\"Game\")\n\tgame.regen_savefile_from_logfile()"
 
 [node name="HUD" type="Node2D"]
 
@@ -75,5 +79,22 @@ shortcut = null
 text = "back"
 flat = false
 script/script = SubResource( 2 )
+
+[node name="Button 2" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 1440.0
+margin/top = 838.0
+margin/right = 1569.0
+margin/bottom = 858.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "generate_save_file"
+flat = false
+script/script = SubResource( 3 )
 
 

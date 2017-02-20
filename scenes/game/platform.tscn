@@ -12,6 +12,7 @@ extents = Vector2( 10, 10 )
 [node name="platform" type="Node2D"]
 
 script/script = ExtResource( 1 )
+staticObject = null
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 

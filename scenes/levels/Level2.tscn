@@ -151,7 +151,6 @@ staticObject = true
 [node name="platform 7" parent="." instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 788.889, 62.4579 )
-staticObject = null
 
 [node name="pipe_booster 2" parent="." instance=ExtResource( 9 )]
 

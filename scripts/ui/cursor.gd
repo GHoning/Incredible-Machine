@@ -13,7 +13,7 @@ func _ready():
 	set_process_input(true)
 	sprite = get_node("Sprite")
 	sprite.set_texture(texture_N)
-	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	#Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	#offset = Vector2(sprite.get_texture().get_height() / 2, sprite.get_texture().get_width() / 2)
 	#offset = Vector2(20, 20)
 	

@@ -26,6 +26,8 @@ func save():
 		filename = get_filename(),
 		posX = get_pos().x,
 		posY = get_pos().y,
-		rot = get_rot()
+		rot = get_rot(),
+		scalex = get_scale().x,
+		scaley = get_scale().y
 	}
 	return savedict

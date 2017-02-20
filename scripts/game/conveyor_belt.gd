@@ -15,7 +15,6 @@ func _ready():
 		
 	if staticObject:
 		rubberband = get_parent().get_node(rubname)
-	#get_node("bandselector").hide()
 
 func clear_rubberband():
 	rubberband = null
@@ -25,6 +24,9 @@ func start():
 	rigidbody.set_sim(true)
 	if !staticObject:
 		rigidbody.dragable_off()
+		
+	if staticObject:
+		rubberband = get_parent().get_node(rubname)
 	
 func end():
 	isSimulating = false
@@ -47,7 +49,6 @@ func get_power():
 	
 func connect_rubberband(o):
 	rubberband = o
-	print("geplakt loop")
 	
 	# returns a string of stuff to save for this object
 func save():
@@ -59,7 +60,9 @@ func save():
 			posY = get_pos().y,
 			rot = get_rot(),
 			rubberband = rubberband.get_name(),
-			objectname = get_name()
+			objectname = get_name(),
+			scalex = get_scale().x,
+			scaley = get_scale().y
 		}
 	else :
 		savedict = {
@@ -68,6 +71,8 @@ func save():
 			posY = get_pos().y,
 			rot = get_rot(),
 			rubberband = "null",
-			objectname = get_name()
+			objectname = get_name(),
+			scalex = get_scale().x,
+			scaley = get_scale().y
 		}
 	return savedict

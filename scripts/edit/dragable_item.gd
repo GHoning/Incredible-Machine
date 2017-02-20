@@ -46,6 +46,7 @@ func _fixed_process(delta):
 	if mouse_down and mouse_over and !get_node("/root/player").get_turning() and !get_node("/root/player").get_moving():
 		selected = true
 		spawn_widget()
+		print(get_parent().get_name(), get_parent().get_pos())
 	
 	if attachedWidget :
 		if mouse_down and !mouse_over and !widget.mouseOver and !widget.turning and !widget.mouseOverDelete:

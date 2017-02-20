@@ -132,14 +132,12 @@ func _on_RigidBody2D_body_enter( body ):
 		timer.stop()
 		timer.set_wait_time(time)
 		timer.start()
-		print("Powered")
 	
 func _get_powered():
 	return powered
 
 func _timer_finished():
 	powered = false
-	print("Powered false")
 	
 func set_sim(b):
 	sim = b

@@ -47,7 +47,6 @@ func _on_mouse_exit():
 func _fixed_process(delta):
 	
 	if mouseDown and mouseOverDelete:
-		print(get_parent().get_parent().get_name())
 		get_node("/root/log").add_to_log(get_parent().get_parent().get_name() + " has been deleted")
 		get_parent().get_parent().queue_free()
 	
@@ -70,7 +69,7 @@ func _fixed_process(delta):
 		get_node("Sprite").hide()
 		get_node("Sprite 2").hide()
 		#if you want it even beter calculate some offset.
-		get_parent().look_at(get_global_mouse_pos())
+		get_parent().get_parent().look_at(get_global_mouse_pos())
 		
 	if mouseOver :
 		get_parent().changeCursor(2)

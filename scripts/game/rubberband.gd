@@ -48,17 +48,12 @@ func set_socket_object1(o):
 	if(socket_object1.has_method("connect_rubberband")):
 		socket_object1.connect_rubberband(self)
 		update()
-	
-	print("set object1")
-	
+
 func set_socket_object2(o):
 	socket_object2 = o.get_parent()
 	if(socket_object2.has_method("connect_rubberband")):
 		socket_object2.connect_rubberband(self)
 		update()
-	
-	print("set object2")
-
 
 func startSimulating():
 	isSimulating = true
@@ -81,7 +76,9 @@ func save():
 			rot = get_rot(),
 			sobject1 = socket_object1.get_name(),
 			sobject2 = socket_object2.get_name(),
-			objectname = get_name()
+			objectname = get_name(),
+			scalex = get_scale().x,
+			scaley = get_scale().y
 		}
 	elif !socket_object1 and socket_object2 :
 		savedict = {
@@ -91,7 +88,9 @@ func save():
 			rot = get_rot(),
 			sobject1 = "null",
 			sobject2 = socket_object2.get_name(),
-			objectname = get_name()
+			objectname = get_name(),
+			scalex = get_scale().x,
+			scaley = get_scale().y
 		}
 	elif socket_object1 and !socket_object2 :
 		savedict = {
@@ -101,7 +100,9 @@ func save():
 			rot = get_rot(),
 			sobject1 = socket_object1.get_name(),
 			sobject2 = "null",
-			objectname = get_name()
+			objectname = get_name(),
+			scalex = get_scale().x,
+			scaley = get_scale().y
 		}
 	else :
 		savedict = {
@@ -111,7 +112,9 @@ func save():
 			rot = get_rot(),
 			sobject1 = "null",
 			sobject2 = "null",
-			objectname = get_name()
+			objectname = get_name(),
+			scalex = get_scale().x,
+			scaley = get_scale().y
 		}
 		
 	return savedict

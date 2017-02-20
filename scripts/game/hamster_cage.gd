@@ -54,7 +54,9 @@ func save():
 			posY = get_pos().y,
 			rot = get_rot(),
 			rubberband = rubberband.get_name(),
-			objectname = get_name()
+			objectname = get_name(),
+			scalex = get_scale().x,
+			scaley = get_scale().y
 		}
 	else :
 		savedict = {
@@ -63,6 +65,8 @@ func save():
 			posY = get_pos().y,
 			rot = get_rot(),
 			rubberband = "null",
-			objectname = get_name()
+			objectname = get_name(),
+			scalex = get_scale().x,
+			scaley = get_scale().y
 		}
 	return savedict
