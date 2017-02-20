@@ -22,6 +22,7 @@ extents = Vector2( 15.4517, 23.9761 )
 
 [node name="pipe_booster" type="Node2D"]
 
+transform/rot = 90.0
 script/script = ExtResource( 1 )
 staticObject = null
 

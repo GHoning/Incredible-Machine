@@ -160,7 +160,6 @@ transform/scale = Vector2( 1.8, 1.8 )
 [node name="pipe_booster 3" parent="." instance=ExtResource( 10 )]
 
 transform/pos = Vector2( 865.197, 326.49 )
-transform/rot = 90.0
 transform/scale = Vector2( 1.8, 1.8 )
 
 [node name="platform 8" parent="." instance=ExtResource( 2 )]

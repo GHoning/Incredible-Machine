@@ -72,8 +72,16 @@ func regen_savefile_from_logfile():
 					
 						#print(object.get_rot(), object.get_name())
 						#print(string)
+						#add the offset added in level 2.
+						if object.get_name() == "pipe_booster 3" :
+							object.set_rot(string.to_float() + deg2rad(90))
+						elif object.get_name() == "pipe_corner 5":
+							object.set_rot(string.to_float() + deg2rad(270))
+						elif object.get_name() == "pipe_corner 6": 
+							object.set_rot(string.to_float() + deg2rad(270))
+						else :
+							object.set_rot(string.to_float())
 						
-						object.set_rot(string.to_float())
 						#print(object.get_rot())
 					
 					else :
