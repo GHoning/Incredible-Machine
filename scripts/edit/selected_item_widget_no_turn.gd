@@ -6,12 +6,6 @@ var square
 
 export(Color) var color
 
-#get all the objects with a rubberband connector
-#then show them 
-#and check if over with one of the two connector pieces.
-#if that is the case add it to the parent rubberband.
-
-
 func _ready():
 	set_fixed_process(true)
 	set_process_input(true)
@@ -25,7 +19,6 @@ func setup(ObjectSize):
 			Vector2(ObjectSize.x, ObjectSize.y), 
 			Vector2(-ObjectSize.x, ObjectSize.y)]
 			
-	var thing = Vector2(2,2)
 			
 func _input(event):
 	if event.is_action_pressed("mouse_down"):

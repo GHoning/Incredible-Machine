@@ -9,7 +9,6 @@ export(String) var rubname
 
 func _ready():
 	rigidbody = get_node("RigidBody2D")
-	#get_node("bandselector").hide()
 	if !staticObject:
 		rigidbody.dragable_on()
 		
@@ -44,7 +43,7 @@ func show_connector():
 func hide_connector():
 	get_node("bandselector").hide()
 	
-	# returns a string of stuff to save for this object
+# returns a dictonary of stuff to save for this object
 func save():
 	var savedict
 	if rubberband:

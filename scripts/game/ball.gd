@@ -12,7 +12,6 @@ func _ready():
 	if !staticObject:
 		rigidbody.dragable_on()
 	
-	
 	rigidbody.set_mode(RigidBody2D.MODE_KINEMATIC)
 
 func start():
@@ -37,7 +36,7 @@ func end():
 	rigidbody.set_mode(RigidBody2D.MODE_KINEMATIC)
 	rigidbody.set_transform(startTransform)
 	
-# returns a string of stuff to save for this object
+# returns a dictonary of stuff to save for this object
 func save():
 	var savedict = {
 		filename = get_filename(),

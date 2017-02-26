@@ -12,6 +12,6 @@ func _pressed():
 		Log.add_to_log("Started Simulation")
 		game.start_simulation()
 		#put these on if you want the game to save the stored information.
-		#game.save()
-		#Log.save_log()
+		game.save()
+		Log.save_log()
 		set_text("Stop")

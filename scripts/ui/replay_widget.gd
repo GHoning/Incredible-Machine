@@ -22,5 +22,4 @@ func _on_Timeline_pressed():
 	get_parent().get_parent().get_parent().set_timeline(true)
 	get_parent().get_parent().add_child(timeline)
 	timeline.create_timeline(logPath + fileName)
-	
 	get_parent().queue_free()

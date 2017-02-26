@@ -26,7 +26,7 @@ func end():
 	if !staticObject:
 		rigidbody.dragable_on()
 	
-	# returns a string of stuff to save for this object
+# returns a dictonary of stuff to save for this object
 func save():
 	var savedict = {
 		filename = get_filename(),

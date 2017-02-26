@@ -6,7 +6,6 @@ var band2 = Vector2(100, 100)
 var offset1 = Vector2(20, 0)
 var offset2 = Vector2(-20, 0)
 
-#what I want here is a two nodes One for each connected item.
 var socket_object1
 var socket_object2
 
@@ -65,7 +64,7 @@ func endSimulating():
 	if !staticObject :
 		rigidbody.dragable_on()
 	
-	# returns a string of stuff to save for this object
+# returns a dictonary of stuff to save for this object
 func save():
 	var savedict
 	if socket_object1 and socket_object2 :

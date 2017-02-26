@@ -8,31 +8,22 @@ var attachedWidget = false
 var widget
 var cursor
 var cursormode = 0
-
 var offset
-
 var startpos
 
-#first click to select the dragable to select it. It draws a selection thing. 
-#When the user clicks on the object again they can move it.
-#WHen they click a thing on the top they can turn the object.
 func _ready():
-	#get the cursor form the game.
 	cursor = get_parent().get_parent().get_parent().get_parent().get_node("Cursor")
 
-#turning the dragging on and off
 func dragable_on():
 	set_process_input(true)
 	set_fixed_process(true)
 	set_pickable(true)
 	
-
 func dragable_off():
 	set_process_input(false)
 	set_fixed_process(false)
 	set_pickable(false)
 
-#inputs to check if mouse is down and such.
 func _input(event):
 	if event.is_action_pressed("mouse_down"):
 		mouse_down = true
@@ -40,7 +31,6 @@ func _input(event):
 	if event.is_action_released("mouse_down"):
 		mouse_down = false
 	
-#this needs to be done better.
 func _fixed_process(delta):
 	if mouse_down and mouse_over and !get_node("/root/player").get_turning() and !get_node("/root/player").get_moving():
 		selected = true
@@ -58,7 +48,6 @@ func _fixed_process(delta):
 	if mouse_down and mouse_over and selected  and !dragging:
 		dragging = true
 		get_node("/root/player").set_moving(true)
-		#store start pos here
 		startpos = get_parent().get_global_pos()
 		offset = get_parent().get_global_pos() - get_global_mouse_pos()
 		
@@ -73,11 +62,8 @@ func _fixed_process(delta):
 	if !mouse_down && dragging :
 		dragging = false
 		get_node("/root/player").set_moving(false)
-		#add the log here
 		get_node("/root/log").add_to_log("Moved: "+get_parent().get_name()+" from " + str(startpos)+ " to " + str(get_parent().get_global_pos()))
 		
-		
-#change cursor
 func changeCursor(i):
 	if cursormode !=  i :
 		cursormode = i
@@ -92,6 +78,7 @@ func changeCursor(i):
 func spawn_widget():
 	if(!attachedWidget):
 		attachedWidget = true
+		#spawn a special widget for the rubberband.
 		var widgetInstance = load("res://scenes/ui/rubberband_widget.tscn").instance()
 		widgetInstance.setup(Vector2(100,100))
 		widgetInstance.set_pos(Vector2(50,50))

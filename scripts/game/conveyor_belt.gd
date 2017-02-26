@@ -46,11 +46,10 @@ func get_power():
 	else :
 		return false
 	
-	
 func connect_rubberband(o):
 	rubberband = o
 	
-	# returns a string of stuff to save for this object
+# returns a dictonary of stuff to save for this object
 func save():
 	var savedict
 	if rubberband:

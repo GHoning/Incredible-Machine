@@ -1,11 +1,10 @@
 extends Node
 
-var simulating
+var simulating = false
 var Level
 var gOLocation = "res://scenes/game/"
-var Win
 
-
+#Only use this function if you lost the save file for some reason
 func regen_savefile_from_logfile():
 	print(get_node("/root/log").levelname)
 	var logdirectory = "res://logs"
@@ -23,17 +22,13 @@ func regen_savefile_from_logfile():
 				var logline = logfile.get_line()
 				if !logline.length() == 0 :
 					if logline.find("Moved") > 0 :
-						#print("Moved a object " + logline)
-					
 						var foundGameItems = get_objects_in_string(logline)
 						var object = fined_longest_name(foundGameItems)
 						
-						#print(object.get_name())
-					
 						#retreive number from log string
 						var x = logline.find_last("(")
 						var y = logline.find_last(")")
-						#add onoe before using it as the iterator to get the numbers between "()"
+						#add one before using it as the iterator to get the numbers between "()"
 						x = x + 1
 						var stringX = ""
 						var stringY = ""
@@ -59,7 +54,7 @@ func regen_savefile_from_logfile():
 						#print ("Rotated a object " + logline)
 						var foundGameItems = get_objects_in_string(logline)
 						#print(foundGameItems)
-						var object = fined_longest_name(foundGameItems)
+						var object = find_longest_name(foundGameItems)
 						#print(object)
 						var x = logline.find_last(" ")
 						x = x + 1
@@ -69,9 +64,7 @@ func regen_savefile_from_logfile():
 						while x != y :
 							string = string + logline[x]
 							x= x + 1
-					
-						#print(object.get_rot(), object.get_name())
-						#print(string)
+						
 						#add the offset added in level 2.
 						if object.get_name() == "pipe_booster 3" :
 							object.set_rot(string.to_float() + deg2rad(90))
@@ -81,14 +74,7 @@ func regen_savefile_from_logfile():
 							object.set_rot(string.to_float() + deg2rad(270))
 						else :
 							object.set_rot(string.to_float())
-						
-						#print(object.get_rot())
-					
-					else :
-						pass
-						#print("No editing of line ", logline)
 		
-			#end of while
 			logfile.close()
 			resave(f)
 		
@@ -100,10 +86,9 @@ func get_objects_in_string(string):
 	
 	return array
 	
-func fined_longest_name(array):
+func find_longest_name(array):
 	var returnString = array[0].get_name()
 	var object = array[0]
-	
 	for o in array :
 		if o.get_name().length() > returnString.length():
 			returnString = o.get_name()
@@ -114,7 +99,6 @@ func fined_longest_name(array):
 func list_files_in_directory(path):
 	var files = []
 	var dir = Directory.new()
-	
 	dir.open(path)
 	dir.list_dir_begin()
 	
@@ -129,9 +113,6 @@ func list_files_in_directory(path):
 		
 	return files
 	
-	
-
-
 func win_level():
 	var win = load("res://scenes/ui/win_widget.tscn").instance()
 	add_child(win)
@@ -139,35 +120,26 @@ func win_level():
 func play_level1():
 	Level = get_node("Level");
 	Level.free()
-	
 	var level1 = load("res://scenes/levels/Level1.tscn").instance()
 	level1.set_name("Level")
 	add_child(level1)
-	
 	get_node("/root/log").set_level_name("Level1")
-	print(get_node("/root/log").levelname)
-	
 	Level = get_node("Level")
 	
 	
 func play_level2():
 	Level = get_node("Level");
 	Level.free()
-	
 	var level2 = load("res://scenes/levels/Level2.tscn").instance()
 	level2.set_name("Level")
 	add_child(level2)
-	
 	get_node("/root/log").set_level_name("Level2")
-	print(get_node("/root/log").levelname)
-	
-
 	Level = get_node("Level")
 	
 func is_simulating():
 	return simulating
 
-#these are called from hud
+#start and end are called from the hud button.
 func start_simulation():
 	simulating = true
 	for o in Level.get_children():
@@ -179,11 +151,11 @@ func end_simulation():
 	for o in Level.get_children():
 		if o.has_method("end"):
 			o.end()
-			
+	
+#only used in the regeneration of the save files. 
 func resave(f):
 	var savefilename = f.replace("logfile", "savefile")
 	savefilename = savefilename.replace("log", "sav")
-	
 	
 	var savepath = "res://saves/" + savefilename
 	var savegame = File.new()
@@ -194,10 +166,9 @@ func resave(f):
 			savegame.store_line(savedata.to_json())
 	
 	savegame.close()
-			
-			
+	
 func save():
-	var savepath = "res://saves/"+get_node("/root/log").playername+"_"+get_node("/root/log").levelname+"_savfile"+str(get_node("/root/log").startcounter)+".txt"
+	var savepath = "res://saves/"+get_node("/root/log").playername+"_"+get_node("/root/log").levelname+"_savefile"+str(get_node("/root/log").startcounter)+".sav"
 	var savegame = File.new()
 	savegame.open(savepath, File.WRITE)
 	for o in Level.get_children():

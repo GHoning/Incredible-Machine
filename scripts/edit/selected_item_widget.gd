@@ -8,12 +8,6 @@ var square
 var startrot
 export(Color) var color
 
-#get all the objects with a rubberband connector
-#then show them 
-#and check if over with one of the two connector pieces.
-#if that is the case add it to the parent rubberband.
-
-
 func _ready():
 	set_fixed_process(true)
 	set_process_input(true)
@@ -29,7 +23,6 @@ func setup(ObjectSize):
 			Vector2(ObjectSize.x, ObjectSize.y), 
 			Vector2(-ObjectSize.x, ObjectSize.y)]
 			
-	var thing = Vector2(2,2)
 			
 func _input(event):
 	if event.is_action_pressed("mouse_down"):
@@ -59,8 +52,6 @@ func _fixed_process(delta):
 		get_node("/root/log").add_to_log(get_parent().get_parent().get_name()+" rotated from " + str(startrot) + " to " + str(get_parent().get_rot()))
 		turning = false
 		get_node("/root/player").set_turning(false)
-		#set_rot(get_parent().get_rot() * -1)
-		#update() to redraw the object
 		get_node("Sprite").show()
 		get_node("Sprite 2").show()
 		
@@ -68,7 +59,6 @@ func _fixed_process(delta):
 		get_parent().changeCursor(2)
 		get_node("Sprite").hide()
 		get_node("Sprite 2").hide()
-		#if you want it even beter calculate some offset.
 		get_parent().get_parent().look_at(get_global_mouse_pos())
 		
 	if mouseOver :

@@ -9,16 +9,10 @@ var attachedWidget = false
 var widget
 var cursor
 var cursormode = 0
-
 var offset
-
 var startpos
 
-#first click to select the dragable to select it. It draws a selection thing. 
-#When the user clicks on the object again they can move it.
-#WHen they click a thing on the top they can turn the object.
 func _ready():
-	#get the cursor form the game.
 	cursor = get_parent().get_parent().get_parent().get_parent().get_node("Cursor")
 
 #turning the dragging on and off
@@ -26,7 +20,6 @@ func dragable_on():
 	set_process_input(true)
 	set_fixed_process(true)
 	set_pickable(true)
-	
 
 func dragable_off():
 	set_process_input(false)
@@ -75,7 +68,6 @@ func _fixed_process(delta):
 	if !mouse_down && dragging :
 		dragging = false
 		get_node("/root/player").set_moving(false)
-		#add the log here
 		get_node("/root/log").add_to_log("Moved: "+get_parent().get_name()+" from " + str(startpos)+ " to " + str(get_parent().get_global_pos()))
 		
 #change cursor

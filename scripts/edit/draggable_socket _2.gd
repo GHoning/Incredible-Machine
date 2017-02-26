@@ -30,7 +30,6 @@ func _fixed_process(delta):
 	if mouseDown and mouseOver and !dragging and !get_node("/root/player").get_moving():
 		dragging = true
 		get_node("/root/player").set_moving(true)
-		#store start pos here
 		offset = get_global_pos() - get_global_mouse_pos()
 		
 	if dragging :
@@ -42,7 +41,6 @@ func _fixed_process(delta):
 		
 	if overValidSocket && !mouseDown && !attached:
 		attached = true
-		print("attach2")#now tell the parents partent to attach to the current body ???
 		get_parent().get_parent().get_parent().set_socket_object2(storeObject)
 		
 	if !overValidSocket:
@@ -59,7 +57,6 @@ func _on_body_enter( body ):
 		print("Over valid socket2")
 		storeObject = body
 		overValidSocket = true
-
 
 func _on_body_exit( body ):
 	overValidSocket = false

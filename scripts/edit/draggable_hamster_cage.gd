@@ -9,9 +9,7 @@ var attachedWidget = false
 var widget
 var cursor
 var cursormode = 0
-
 var offset
-
 var startpos
 
 var sim = false
@@ -20,17 +18,12 @@ export var time = 2
 var connectingbodies = []
 var timer = Timer.new()
 
-#first click to select the dragable to select it. It draws a selection thing. 
-#When the user clicks on the object again they can move it.
-#WHen they click a thing on the top they can turn the object.
 func _ready():
-	#get the cursor form the ga
 	cursor = get_parent().get_parent().get_parent().get_parent().get_node("Cursor")
 	timer.connect("timeout", self, "_timer_finished")
 	timer.set_one_shot(true)
 	add_child(timer)
 
-#turning the dragging on and off
 func dragable_on():
 	set_process_input(true)
 	set_fixed_process(true)
@@ -43,7 +36,6 @@ func dragable_off():
 	set_pickable(false)
 	sim = true
 
-#inputs to check if mouse is down and such.
 func _input(event):
 	if event.is_action_pressed("mouse_down"):
 		mouse_down = true
@@ -51,7 +43,6 @@ func _input(event):
 	if event.is_action_released("mouse_down"):
 		mouse_down = false
 	
-#this needs to be done better.
 func _fixed_process(delta):
 	if mouse_down and mouse_over and !get_node("/root/player").get_turning() and !get_node("/root/player").get_moving():
 		selected = true
@@ -69,7 +60,6 @@ func _fixed_process(delta):
 	if mouse_down and mouse_over and selected  and !dragging:
 		dragging = true
 		get_node("/root/player").set_moving(true)
-		#store start pos here
 		startpos = get_parent().get_global_pos()
 		offset = get_parent().get_global_pos() - get_global_mouse_pos()
 		
@@ -84,11 +74,8 @@ func _fixed_process(delta):
 	if !mouse_down && dragging :
 		dragging = false
 		get_node("/root/player").set_moving(false)
-		#add the log here
 		get_node("/root/log").add_to_log("Moved: "+get_parent().get_name()+" from " + str(startpos)+ " to " + str(get_parent().get_global_pos()))
-		
-		
-#change cursor
+	
 func changeCursor(i):
 	if cursormode !=  i :
 		cursormode = i
@@ -99,7 +86,6 @@ func changeCursor(i):
 		elif i == 2:
 			cursor.set_turnObject()
 	
-#Add and remove widget
 func spawn_widget():
 	if(!attachedWidget):
 		attachedWidget = true
@@ -113,8 +99,7 @@ func remove_widget():
 	if(attachedWidget):
 		widget.free()
 		attachedWidget = false
-	
-#Events from the sprite to see if there is a mouse over going on.
+		
 func _on_mouse_enter():
 	mouse_over = true
 	
@@ -122,6 +107,7 @@ func _on_mouse_exit():
 	if not dragging:
 		mouse_over = false
 
+#The hamsters in game behavior.
 func _on_RigidBody2D_body_enter( body ):
 	#returns -1 if object not in array
 	if sim && connectingbodies.find(body.get_name()) < 0 :

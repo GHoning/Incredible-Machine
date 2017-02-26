@@ -13,15 +13,14 @@ func _ready():
 	set_process_input(true)
 	sprite = get_node("Sprite")
 	sprite.set_texture(texture_N)
-	#Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-	#offset = Vector2(sprite.get_texture().get_height() / 2, sprite.get_texture().get_width() / 2)
-	#offset = Vector2(20, 20)
+	print("set texture")
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	offset = Vector2(sprite.get_texture().get_height() / 2, sprite.get_texture().get_width() / 2)
 	
 func _input(event):
 	if(event.type == InputEvent.MOUSE_MOTION):
 		offset = Vector2(sprite.get_texture().get_height() / 2, sprite.get_texture().get_width() / 2)
 		set_pos(event.pos + offset)
-		
 
 func set_moveObject():
 	sprite.set_texture(texture_M)
