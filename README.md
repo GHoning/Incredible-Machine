@@ -5,9 +5,11 @@ We tried to give teachers a tool to help them understand the way their students 
 Meester de baas:
 https://www.nhl.nl/onderzoek-hoogbegaafdheid-de-meester-de-baas
 
+The game was developed in the godot engine.
+https://godotengine.org/
+
 Kind regards,
 Erwin and Gerard
-
 
 
 MIT License
